@@ -11,9 +11,9 @@ from linebot.models import *
 
 import random as rd
 
-import requests
+# import requests
 
-from bs4 import BeautifulSoup
+# from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 
@@ -93,13 +93,13 @@ def handle_message(event):
 
     # 輸入本號找tag
 
-    def nHentaiSearcher(num):
-        response = requests.get("https://nhentai.net/g/" + num)
-        soup = BeautifulSoup(response.text, "html.parser")
-        target = [soup.find("span", {"class": "before"}).text,
-            soup.find("span", {"class": "pretty"}).text,
-            soup.find("span", {"class": "after"}).text]
-        return target
+    # def nHentaiSearcher(num):
+    #     response = requests.get("https://nhentai.net/g/" + num)
+    #     soup = BeautifulSoup(response.text, "html.parser")
+    #     target = [soup.find("span", {"class": "before"}).text,
+    #         soup.find("span", {"class": "pretty"}).text,
+    #         soup.find("span", {"class": "after"}).text]
+    #     return target
 
     # if event.message.text == '神之語言':
     #     doujinNum = TextSendMessage(text=event.message.text)
