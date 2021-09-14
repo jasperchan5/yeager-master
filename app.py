@@ -39,24 +39,24 @@ def handle_message(event):
     exitNum = rd.randint(0,100)
     if event.message.text == '今天的幸運數字':
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=exitNum))
-        
+
     if event.message.text == '野':
-        if exitNum <= 0.55 and exitNum >= 0.5:
+        if exitNum <= 60 and exitNum >= 50:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text='斷'))
         else:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text='格'))
     elif event.message.text == '炸':
-        if exitNum <= 0.55 and exitNum >= 0.5:
+        if exitNum <= 70 and exitNum >= 50:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text='斷'))
         else:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text='彈'))
     elif event.message.text == '我':
-        if exitNum <= 0.55 and exitNum >= 0.5:
+        if exitNum <= 70 and exitNum >= 50:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text='斷'))
         else:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text='的'))
     elif event.message.text == '最':
-        if exitNum <= 0.55 and exitNum >= 0.5:
+        if exitNum <= 70 and exitNum >= 50:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text='斷'))
         else:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text='愛'))
