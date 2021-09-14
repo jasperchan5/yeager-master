@@ -32,12 +32,29 @@ def callback():
 
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
-def handle_message(event):
-    message = TextSendMessage(text=event.message.text)
+def yeager(event):
     if event.message.text == '野':
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text='格'))
-    else:
-        line_bot_api.reply_message(event.reply_token, message)
+    elif event.message.text == '炸':
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='彈'))
+    elif event.message.text == '我':
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='的'))
+    elif event.message.text == '最':
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='愛'))
+        
+def jayTien(event):
+    if event.message.text == '田':
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='勝'))
+    elif event.message.text == '傑':
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='是'))
+    elif event.message.text == '口':
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='交'))
+    elif event.message.text == '惡':
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='徒'))
+
+def handle_message(event):
+    message = TextSendMessage(text=event.message.text)
+    line_bot_api.reply_message(event.reply_token, message)
     
 
 import os
