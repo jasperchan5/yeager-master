@@ -92,17 +92,22 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text='你是我的'))
 
     # 輸入本號找tag
-    if event.message.text == '神之語言':
-        doujinNum = TextSendMessage(text=event.message.text)
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=nHentaiSearcher(doujinNum)))
-        
 
-def nHentaiSearcher(num):
-    response = requests.get("https://nhentai.net/g/" + num)
-    soup = BeautifulSoup(response.text, "html.parser")
-    title = soup.find("span", {"class": "pretty"})
-    target = title.text
-    return target
+    def nHentaiSearcher(num):
+        response = requests.get("https://nhentai.net/g/" + num)
+        soup = BeautifulSoup(response.text, "html.parser")
+        target = [soup.find("span", {"class": "before"}).text,
+            soup.find("span", {"class": "pretty"}).text,
+            soup.find("span", {"class": "after"}).text]
+        return target
+
+    # if event.message.text == '神之語言':
+    #     doujinNum = TextSendMessage(text=event.message.text)
+    #     strings = nHentaiSearcher(doujinNum)
+    #     for i in strings:
+
+    #     line_bot_api.reply_message(event.reply_token, TextSendMessage(text=))
+        
 
 import os
 if __name__ == "__main__":
