@@ -11,9 +11,9 @@ from linebot.models import *
 
 import random as rd
 
-import requests
+# import requests
 
-from bs4 import BeautifulSoup
+# from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 
