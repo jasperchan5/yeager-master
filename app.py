@@ -8,6 +8,8 @@ from linebot.exceptions import (
 )
 from linebot.models import *
 
+import random as rd
+
 app = Flask(__name__)
 
 # Channel Access Token
@@ -33,14 +35,32 @@ def callback():
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+
+    exitNum = rd.randint(0,100)
+    if event.message.text == '今天的幸運數字':
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=exitNum))
+        
     if event.message.text == '野':
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='格'))
+        if exitNum <= 0.55 and exitNum >= 0.5:
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='斷'))
+        else:
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='格'))
     elif event.message.text == '炸':
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='彈'))
+        if exitNum <= 0.55 and exitNum >= 0.5:
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='斷'))
+        else:
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='彈'))
     elif event.message.text == '我':
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='的'))
+        if exitNum <= 0.55 and exitNum >= 0.5:
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='斷'))
+        else:
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='的'))
     elif event.message.text == '最':
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='愛'))
+        if exitNum <= 0.55 and exitNum >= 0.5:
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='斷'))
+        else:
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='愛'))
+    
     
     if event.message.text == '田':
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text='勝'))
@@ -51,6 +71,11 @@ def handle_message(event):
     elif event.message.text == '惡':
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text='徒'))
     
+    if event.message.text == '南':
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='一'))
+    elif event.message.text == '中':
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='蜜'))
+
     if event.message.text == '當天是空的':
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text='地是乾的'))
     elif event.message.text == '我要為你':
@@ -59,7 +84,6 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text='讓你渴'))
     elif event.message.text == '讓全世界知道':
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text='你是我的'))
-
 
 import os
 if __name__ == "__main__":
