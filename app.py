@@ -1,3 +1,4 @@
+# Import libraries
 from flask import Flask, request, abort
 
 from linebot import (
@@ -9,6 +10,10 @@ from linebot.exceptions import (
 from linebot.models import *
 
 import random as rd
+
+import requests
+
+from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 
@@ -36,27 +41,29 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
 
-    exitNum = rd.randint(0,100)
+    randNum = rd.randint(0,100)
     if event.message.text == '抽數字':
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=exitNum))
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=randNum))
+
+    ### 接龍區 ###
 
     if event.message.text == '野':
-        if exitNum <= 50:
+        if randNum <= 50:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text='斷'))
         else:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text='格'))
     elif event.message.text == '炸':
-        if exitNum <= 50:
+        if randNum <= 50:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text='斷'))
         else:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text='彈'))
     elif event.message.text == '我':
-        if exitNum <= 50:
+        if randNum <= 50:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text='斷'))
         else:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text='的'))
     elif event.message.text == '最':
-        if exitNum <= 50:
+        if randNum <= 50:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text='斷'))
         else:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text='愛'))
@@ -83,6 +90,19 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text='讓你渴'))
     elif event.message.text == '讓全世界知道':
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text='你是我的'))
+
+    # 輸入本號找tag
+    if event.message.text == '神之語言':
+        doujinNum = TextSendMessage(text=event.message.text)
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=nHentaiSearcher(doujinNum)))
+        
+
+def nHentaiSearcher(num):
+    response = requests.get("https://nhentai.net/g/" + num)
+    soup = BeautifulSoup(response.text, "html.parser")
+    title = soup.find("span", {"class": "pretty"})
+    target = title.text
+    return target
 
 import os
 if __name__ == "__main__":
