@@ -32,7 +32,7 @@ def callback():
 
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
-def yeager(event):
+def handle_message(event):
     if event.message.text == '野':
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text='格'))
     elif event.message.text == '炸':
@@ -41,9 +41,7 @@ def yeager(event):
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text='的'))
     elif event.message.text == '最':
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text='愛'))
-
-@handler.add(MessageEvent, message=TextMessage)
-def jayTien(event):
+    
     if event.message.text == '田':
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text='勝'))
     elif event.message.text == '傑':
@@ -52,12 +50,16 @@ def jayTien(event):
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text='交'))
     elif event.message.text == '惡':
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text='徒'))
-
-@handler.add(MessageEvent, message=TextMessage)
-def handle_message(event):
-    message = TextSendMessage(text=event.message.text)
-    line_bot_api.reply_message(event.reply_token, message)
     
+    if event.message.text == '當天是空的':
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='地是乾的'))
+    elif event.message.text == '我要為你':
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='倒進狂熱'))
+    elif event.message.text == '讓你瘋狂':
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='讓你渴'))
+    elif event.message.text == '讓全世界知道':
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='你是我的'))
+
 
 import os
 if __name__ == "__main__":
