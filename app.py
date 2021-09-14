@@ -41,7 +41,8 @@ def yeager(event):
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text='的'))
     elif event.message.text == '最':
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text='愛'))
-        
+
+@handler.add(MessageEvent, message=TextMessage)
 def jayTien(event):
     if event.message.text == '田':
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text='勝'))
@@ -52,6 +53,7 @@ def jayTien(event):
     elif event.message.text == '惡':
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text='徒'))
 
+@handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     message = TextSendMessage(text=event.message.text)
     line_bot_api.reply_message(event.reply_token, message)
