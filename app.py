@@ -45,13 +45,13 @@ def handle_message(event):
 
     ### 接龍區 ###
 
-    yeagerModel = Solitaire(event.message.text)
-    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=yeagerModel.processer()))
+    soliModel = Solitaire(event.message.text)
+    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=soliModel.processer()))
 
     # 輸入本號找tag
-    
+
+    doujinNum = rd.randint(0,400000)
     if event.message.text == '神之語言':
-        doujinNum = rd.randint(0,400000)
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=doujinNum))
         
 
