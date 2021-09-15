@@ -39,10 +39,6 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
 
-    randNum = rd.randint(0,100)
-    if event.message.text == '抽數字':
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=randNum))
-
     ### 接龍區 ###
 
     soliModel = Solitaire(event.message.text)
@@ -50,9 +46,9 @@ def handle_message(event):
 
     # 輸入本號找tag
 
-    doujinNum = rd.randint(0,400000)
-    if event.message.text == '神之語言':
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=doujinNum))
+    randNum = rd.randint(0,400000)
+    if event.message.text == '抽數字':
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=randNum))
         
 
 import os
