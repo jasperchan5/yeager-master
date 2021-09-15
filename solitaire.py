@@ -9,7 +9,9 @@ class Solitaire:
         randomNum = rd.randint(0,100)
         if temp == '野' or temp == '炸' or temp == '我' or temp == '最':
             if temp == '野':
-                if randomNum >=40: return '格'
+                randomNum = rd.randint(0,150)
+                if randomNum >=40 and randomNum <=120: return '格'
+                elif randomNum > 120: return '獸'
                 else: return '斷'
             if temp == '炸':
                 if randomNum >=40: return '彈'
@@ -20,6 +22,8 @@ class Solitaire:
             if temp == '最':
                 if randomNum >=40: return '愛'
                 else: return '斷'
+            if temp == '先': return '輩'
+            if temp == '雷': return '普'
         elif temp == '田' or temp == '傑' or temp == '口' or temp == '惡':
             if temp == '田': return '勝'
             if temp == '傑': return '是'
