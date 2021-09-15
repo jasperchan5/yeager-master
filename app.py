@@ -11,7 +11,7 @@ from linebot.models import *
 
 import random as rd
 
-from crawler import nHentaiSearcher
+from solitaire import Solitaire
 
 app = Flask(__name__)
 
@@ -45,12 +45,10 @@ def handle_message(event):
 
     ### 接龍區 ###
 
-    if event.message.text == '野':
-        if randNum <= 40:
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='斷'))
-        else:
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='格'))
-    elif event.message.text == '炸':
+    yeagerModel = Solitaire('野')
+    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=yeagerModel.yeager()))
+
+    if event.message.text == '炸':
         if randNum <= 40:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text='斷'))
         else:
