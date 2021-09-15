@@ -46,16 +46,7 @@ def handle_message(event):
     ### 接龍區 ###
 
     yeagerModel = Solitaire(event.message.text)
-    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=yeagerModel.yeager()))
-    
-    if event.message.text == '田':
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='勝'))
-    elif event.message.text == '傑':
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='是'))
-    elif event.message.text == '口':
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='交'))
-    elif event.message.text == '惡':
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='徒'))
+    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=yeagerModel.processer()))
     
     if event.message.text == '南':
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text='一'))
