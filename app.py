@@ -67,16 +67,6 @@ def handle_message(event):
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text='斷'))
         else:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text='愛'))
-    elif event.message.text == '超':
-        if randNum <= 40:
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='斷'))
-        else:
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='爽'))
-    elif event.message.text == '口':
-        if randNum <= 40:
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='斷'))
-        else:
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='感'))
     
     if event.message.text == '田':
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text='勝'))
