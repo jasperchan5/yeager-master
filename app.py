@@ -46,7 +46,8 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=randNum))
     elif message == '指令':
         orders = "很高興認識你，我是接龍大師。\n目前支援：\n野格炸彈\n星爆\n田勝傑\n南一中蜜蜂"
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=orders))
+        for i in range(0,5):
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=orders))
     else:
         soliModel = Solitaire(message)
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=soliModel.processer()))
