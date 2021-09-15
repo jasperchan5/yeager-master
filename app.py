@@ -47,7 +47,7 @@ def handle_message(event):
         if randNum <= 40:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text='斷'))
         else:
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='格'))
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='獸'))
     elif event.message.text == '炸':
         if randNum <= 40:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text='斷'))
