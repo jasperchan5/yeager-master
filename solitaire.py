@@ -22,8 +22,8 @@ class Solitaire:
             if temp == '最':
                 if randomNum >=40: return '愛'
                 else: return '斷'
-            if temp == '先': return '輩'
-            if temp == '雷': return '普'
+        elif temp == '先': return '輩'
+        elif temp == '雷': return '普'
         elif temp == '田' or temp == '傑' or temp == '口' or temp == '惡':
             if temp == '田': return '勝'
             if temp == '傑': return '是'
