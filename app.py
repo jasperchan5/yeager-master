@@ -39,17 +39,15 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
 
-    ### 接龍區 ###
+    message = event.message.text
 
-    soliModel = Solitaire(event.message.text)
-    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=soliModel.processer()))
-
-    # 輸入本號找tag
-
-    randNum = rd.randint(0,400000)
-    if event.message.text == '抽數字':
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=randNum))
-        
+    if message == '神之語言':
+        randNum = rd.randint(0,400000)
+        if event.message.text == '抽數字':
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=randNum))
+    else:
+        soliModel = Solitaire(message)
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=soliModel.processer()))
 
 import os
 if __name__ == "__main__":
