@@ -34,3 +34,9 @@ class Solitaire:
                 elif 40<randomNum and randomNum <=60: return '常'
                 elif 60<randomNum and randomNum <=80: return '被'
                 elif 80<randomNum and randomNum <=100: return '都'
+        elif temp == '星' or temp == '氣' or temp == '斬' or temp == '我' or temp == '十':
+            if temp == '星': return '爆'
+            if temp == '氣': return '流'
+            if temp == '斬': return '幫'
+            if temp == '我': return '撐'
+            if temp == '十': return '秒'

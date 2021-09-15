@@ -43,8 +43,7 @@ def handle_message(event):
 
     if message == '神之語言':
         randNum = rd.randint(0,400000)
-        if event.message.text == '抽數字':
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=randNum))
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=randNum))
     else:
         soliModel = Solitaire(message)
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=soliModel.processer()))
