@@ -6,8 +6,8 @@ class Solitaire:
     
     def processer(self):
         temp = self.inputStr
+        randomNum = rd.randint(0,100)
         if temp == '野' or temp == '炸' or temp == '我' or temp == '最':
-            randomNum = rd.randint(0,100)
             if temp == '野':
                 if randomNum >=40: return '格'
                 else: return '斷'
@@ -25,4 +25,12 @@ class Solitaire:
             if temp == '傑': return '是'
             if temp == '口': return '交'
             if temp == '惡': return '徒'
-        
+        elif temp == '南' or temp == '中' or temp == '蜂':
+            if temp == '南': return '一'
+            if temp == '中': return '蜜'
+            if temp == '蜂': 
+                if 0<=randomNum and randomNum <=20: return '是'
+                elif 20<randomNum and randomNum <=40: return '喜'
+                elif 40<randomNum and randomNum <=60: return '常'
+                elif 60<randomNum and randomNum <=80: return '被'
+                elif 80<randomNum and randomNum <=100: return '都'
