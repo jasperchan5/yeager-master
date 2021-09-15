@@ -45,24 +45,8 @@ def handle_message(event):
 
     ### 接龍區 ###
 
-    yeagerModel = Solitaire('野')
+    yeagerModel = Solitaire(event.message.text)
     line_bot_api.reply_message(event.reply_token, TextSendMessage(text=yeagerModel.yeager()))
-
-    if event.message.text == '炸':
-        if randNum <= 40:
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='斷'))
-        else:
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='彈'))
-    elif event.message.text == '我':
-        if randNum <= 40:
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='斷'))
-        else:
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='的'))
-    elif event.message.text == '最':
-        if randNum <= 40:
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='斷'))
-        else:
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='愛'))
     
     if event.message.text == '田':
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text='勝'))
