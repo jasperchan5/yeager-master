@@ -13,10 +13,6 @@ import random as rd
 
 from solitaire import Solitaire
 
-from Linephu.linepy import *
-
-from Linephu.akad.ttypes import *
-
 
 client = LINE()
 client.log("Auth Token : " + str(client.authToken))
@@ -57,9 +53,6 @@ def handle_message(event):
     elif message == '指令':
         orders = "很高興認識你，我是接龍大師。\n\n目前支援：\n野格炸彈\n星爆\n田勝傑\n南一中蜜蜂"
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=orders))
-    elif message == '尻安':
-        memberToClick = https://api.line.me/v2/bot/profile/{userId}
-        client.kickoutFromGroup(to,)
     else:
         soliModel = Solitaire(message)
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=soliModel.processer()))
