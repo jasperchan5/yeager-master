@@ -44,7 +44,7 @@ def handle_message(event):
 
     if message == '神之語言':
         randNum = rd.randint(0,400000)
-        hentaiSearch = nHentaiSearcher(randNum)
+        hentaiSearch = nHentaiSearcher(str(randNum))
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=hentaiSearch.searchTitle()))
     elif message == '指令':
         orders = "很高興認識你，我是接龍大師。\n\n【功能列表】\n-接龍:\n野格炸彈\n星爆\n田勝傑\n南一中蜜蜂\n\n更多功能敬請期待..."
