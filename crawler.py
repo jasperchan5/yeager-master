@@ -16,7 +16,7 @@ class nHentaiSearcher:
             tagCnt = 0
             tags = ["\n"]
             for i in tempTag:
-                tags += tempTag[tagCnt].text
+                tags += "[" + tempTag[tagCnt].text + "]"
                 tags += " "
                 tagCnt += 1
                 if tagCnt % 5 == 0:
