@@ -24,10 +24,11 @@ class nHentaiSearcher:
             return self.processInfo(title,tags)
     def processInfo(self,title,tags):
         self.__tempStr += self.__num
-        self.__tempStr += "\n"
+        self.__tempStr += "\n\n"
         tagCnt = 0
         for i in range(0,3):
             self.__tempStr += title[i]
+            self.__tempStr += "\n"
         for i in tags:
             self.__tempStr += tags[tagCnt]
             tagCnt += 1
