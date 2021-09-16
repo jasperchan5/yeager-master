@@ -8,17 +8,19 @@ class nHentaiSearcher:
         self.__tempStr = ""
     def searchTitle(self):
         if self.__target.status_code != 200:
-            return self.__num + "哭啊，查無此本"
+            return self.__num + "\n哭啊，查無此本"
         else: 
             page = BeautifulSoup(self.__target.text,"html.parser")
             title = [page.find("span","before").text,page.find("span","pretty").text,page.find("span","after").text]
             tempTag = page.find_all("span","name")
             tagCnt = 0
-            tags = []
+            tags = ["\n"]
             for i in tempTag:
                 tags += tempTag[tagCnt].text
                 tags += " "
                 tagCnt += 1
+                if tagCnt % 5 == 0:
+                    tags += "\n"
             return self.processInfo(title,tags)
     def processInfo(self,title,tags):
         self.__tempStr += self.__num
@@ -30,5 +32,3 @@ class nHentaiSearcher:
             self.__tempStr += tags[tagCnt]
             tagCnt += 1
         return self.__tempStr
-    def getPage(self):
-        return "https://nhentai.net/g/"+self.__num
