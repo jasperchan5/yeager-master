@@ -13,12 +13,6 @@ import random as rd
 
 from solitaire import Solitaire
 
-
-client = LINE()
-client.log("Auth Token : " + str(client.authToken))
-
-oepoll = OEPoll(client)
-
 app = Flask(__name__)
 
 # Channel Access Token
