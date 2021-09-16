@@ -1,54 +1,70 @@
-from linepy import *
-from dotenv import load_dotenv, find_dotenv
-from var_dump import var_dump
-import os
+from Linephu.linepy import *
+from Linephu.akad.ttypes import *
 
-load_dotenv(find_dotenv())
 
-LINE_EMAIL = os.getenv('LINE_EMAIL')
-LINE_PASS = os.getenv('LINE_PASS')
+client = LINE()
+client.log("Auth Token : " + str(client.authToken))
 
-line= LINE(LINE_EMAIL, LINE_PASS)
+oepoll = OEPoll(client)
 
-oepoll = OEPoll(line)
+invtag = []
 
-prohibitedWords = ['Asu', 'Jancuk', 'Tai']
-userTemp = {}
-userKicked = []
-
-def TERIMA_PESAN(op):
+def NOTIFIED_INVITE_INTO_GROUP(op):
     try:
-        msg = op.message
-
-        text = msg.text
-        receiver = msg.to
-        sender = msg._from
-        msg_id = msg.id
-
-        # Jika kita menerima pesan dari grup
-        if msg.toType == 2:
-            var_dump(userTemp)
-            displayName = line.getContact(sender).displayName
-            if text in prohibitedWords:
-
-                if sender in userTemp:
-                    userTemp[sender] = userTemp.get(sender) + 1
-
-                    # Jika sudah melebihi dari 3, maka akan terkick
-                    if userTemp.get(sender) > 3:
-                        userKicked.append(sender)
-                        line.kickoutFromGroup(receiver, userKicked)
-                        line.log("{} telah terkick dari grup".format(displayName))
-                        userTemp.pop(sender)
-                else:
-                    userTemp[sender] = 1
+        client.acceptGroupInvitation(op.param1)
+        invtag.append(op.param2)
+        client.sendMessage(op.param1, "bye everyone")
     except Exception as e:
-        line.log(str(e))
-
-
+        print(e)
+        print("\n\nNOTIFIED_INVITE_INTO_GROUP\n\n")
+        return
+    
+    
+def SEND_MESSAGE(op):
+    msg = op.message
+    try:
+        if msg.toType == 2:
+            if msg.contentType == 0:
+                if msg.text == "bye everyone":
+                    print("start destroying")
+                    _name = msg.text.replace("bye everyone","")
+                    group = client.getGroup(msg.to)
+                    group.name = "幻滅之遺境"
+                    client.updateGroup(group)
+                    targets = []
+                    for g in group.members:
+                        if _name in g.displayName:
+                            targets.append(g.mid)
+                    if targets == []:
+                        client.leaveGroup(msg.to)
+                    else:
+                        for target in targets:
+                            try:
+                                if target in invtag:
+                                    pass
+                                else:
+                                    client.kickoutFromGroup(msg.to,[target])
+                                    print (msg.to,[g.mid])
+                            except:
+                               group = client.getGroup(op.param1)
+                               groupinvitingmembersmid = [contact.mid for contact in group.invitee]
+                               for _mid in groupinvitingmembersmid:
+                                   client.cancelGroupInvitation(op.param1, [_mid])
+                                   time.sleep(0.5)
+                    client.leaveGroup(msg.to)
+        else:
+            pass
+        
+    except Exception as e:
+        print(e)
+        print("\n\nSEND_MESSAGE\n\n")
+        return
+    
 oepoll.addOpInterruptWithDict({
-    OpType.RECEIVE_MESSAGE : TERIMA_PESAN
+    OpType.NOTIFIED_INVITE_INTO_GROUP: NOTIFIED_INVITE_INTO_GROUP,
+    OpType.SEND_MESSAGE: SEND_MESSAGE
 })
+
 
 while True:
     oepoll.trace()

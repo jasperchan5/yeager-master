@@ -13,6 +13,8 @@ import random as rd
 
 from solitaire import Solitaire
 
+import kicker
+
 app = Flask(__name__)
 
 # Channel Access Token
