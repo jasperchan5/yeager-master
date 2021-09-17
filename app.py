@@ -12,7 +12,7 @@ from linebot.models import *
 import random as rd
 
 from solitaire import Solitaire
-from crawler import nHentaiSearcher, pixivSearcher, tagSearcher
+from crawler import nHentaiSearcher, pixivSearcher, tagSearcher, covid19
 
 app = Flask(__name__)
 
@@ -60,6 +60,9 @@ def handle_message(event):
         illustNum = rd.randint(0,100000000)
         illustSearch = pixivSearcher(str(illustNum))
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=illustSearch.searchTitle()))
+    elif message == '疫情報告':
+        covidBot = covid19()
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=covidBot.getDailyInfo()))
     else:
         soliModel = Solitaire(message)
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=soliModel.processer()))
