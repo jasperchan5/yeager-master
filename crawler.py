@@ -104,14 +104,14 @@ class covid19:
         # 本土確診
         domesticStr = page.find_all("span","country_confirmed_percent")[1].text
         newDomesticStr = domesticStr.replace('本土病例 ','')
-        tempStr += newDomesticStr + "\n"
+        tempStr += '本土： ' + newDomesticStr + "\n"
         # 境外確診
         foreignStr = str(int(newTotalInfected) - int(newDomesticStr))
-        tempStr += foreignStr + "\n"
+        tempStr += '境外： ' + foreignStr + "\n"
         # 死亡人數
         deathStr = page.find("span","country_deaths_change").text
         newDeathStr = deathStr.replace('+','')
-        tempStr += newDeathStr
+        tempStr += '死亡： ' + newDeathStr
         return tempStr
 a = covid19()
 print(a.getDailyInfo())
