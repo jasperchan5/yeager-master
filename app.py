@@ -12,7 +12,7 @@ from linebot.models import *
 import random as rd
 
 from solitaire import Solitaire
-from crawler import nHentaiSearcher, pixivSearcher
+from crawler import nHentaiSearcher, pixivSearcher, tagSearcher
 
 app = Flask(__name__)
 
@@ -52,15 +52,15 @@ def handle_message(event):
         doujinNum = message.split(" ")[1]
         hentaiSearch = nHentaiSearcher(doujinNum)
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=hentaiSearch.searchTitle()))
-    # elif '找本子 ' in message:
-    #     tags = message.split(" ")
-    #     toSearch = ""
-    #     tagCnt =1
-    #     for i in tags:
-    #         toSearch += tags[tagCnt]
-    #         tagCnt +=1
-    #     doujinSearch = tagSearcher(toSearch)
-    #     line_bot_api.reply_message(event.reply_token, TextSendMessage(text=doujinSearch.searchDoujin()))
+    elif '找本子 ' in message:
+        tags = message.split(" ")
+        toSearch = ""
+        tagCnt =1
+        for i in tags:
+            toSearch += tags[tagCnt]
+            tagCnt +=1
+        doujinSearch = tagSearcher(toSearch)
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=doujinSearch.searchDoujin()))
     elif message == '不可以色色':
         illustNum = rd.randint(0,100000000)
         illustSearch = pixivSearcher(str(illustNum))
