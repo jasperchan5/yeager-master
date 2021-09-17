@@ -43,11 +43,10 @@ class pixivSearcher:
         else: 
             page = BeautifulSoup(self.__target.text,"html.parser")
             title = page.find("title").text
-            tempTag = page.find_all("title")
+            tempTag = page.find_all("a")
             tagCnt = 0
             tags = ["\n"]
             for i in tempTag:
-                print(tempTag[tagCnt].text)
                 tags += "[" + tempTag[tagCnt].text + "]"
                 tags += " "
                 tagCnt += 1
