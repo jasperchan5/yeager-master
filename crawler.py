@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import random as rd
 
 class nHentaiSearcher:
     def __init__(self,num):
@@ -34,11 +35,25 @@ class nHentaiSearcher:
 
 class tagSearcher:
     def __init__(self,inputStr):
-        self.__target = requests.get("https://nhentai.net/search/?q="+inputStr)
+        self.__target = requests.get("https://nhentai.net/search/?q=" + inputStr)
+        self.__num = inputStr
         self.__tempStr = ""
     def searchDoujin(self):
         page = BeautifulSoup(self.__target.text,"html.parser")
-        title = page.find_all("div","caption").text
+        totalStr = page.find("h1").text
+        totalNum = totalStr.split(" ")[1]
+        doujinNum = ""
+        cnt = 0
+        for i in totalNum:
+            if totalNum[cnt] != ',':
+                doujinNum += totalNum[cnt]
+            cnt += 1
+        totalPageNum = int(int(doujinNum) / 25) + 1
+        pageNum = rd.randint(1,int(totalPageNum))
+        randNum = rd.randint(0,24)
+        self.__target = requests.get("https://nhentai.net/search/?q=" + self.__num + "&page=" + str(pageNum))
+        page = BeautifulSoup(self.__target.text,"html.parser")
+        title = page.find_all("div","caption")[24].text
         self.__tempStr += title
         return self.__tempStr
 
