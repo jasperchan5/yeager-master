@@ -12,7 +12,7 @@ from linebot.models import *
 import random as rd
 
 from solitaire import Solitaire
-from crawler import nHentaiSearcher, pixivSearcher, tagSearcher
+from crawler import nHentaiSearcher, pixivSearcher
 
 app = Flask(__name__)
 
