@@ -11,7 +11,7 @@ class nHentaiSearcher:
             return self.__num + "\n哭啊，查無此本"
         else: 
             page = BeautifulSoup(self.__target.text,"html.parser")
-            title = [page.find("span","before").text,page.find("span","pretty").text,page.find("span","after").text]
+            title = page.find("h2","title").text
             tempTag = page.find_all("span","name")
             tagCnt = 0
             tags = ["\n"]
@@ -19,16 +19,14 @@ class nHentaiSearcher:
                 tags += "[" + tempTag[tagCnt].text + "]"
                 tags += " "
                 tagCnt += 1
-                if tagCnt % 5 == 0:
+                if tagCnt % 3 == 0:
                     tags += "\n"
             return self.processInfo(title,tags)
     def processInfo(self,title,tags):
         self.__tempStr += self.__num
         self.__tempStr += "\n\n"
         tagCnt = 0
-        for i in range(0,3):
-            self.__tempStr += title[i]
-            self.__tempStr += "\n"
+        self.__tempStr += title + "\n"
         for i in tags:
             self.__tempStr += tags[tagCnt]
             tagCnt += 1
