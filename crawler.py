@@ -35,7 +35,6 @@ class nHentaiSearcher:
 class tagSearcher:
     def __init__(self,inputStr):
         self.__target = requests.get("https://nhentai.net/search/?q="+inputStr)
-        self.__num = -1
         self.__tempStr = ""
     def searchDoujin(self):
         page = BeautifulSoup(self.__target.text,"html.parser")

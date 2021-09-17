@@ -52,7 +52,7 @@ def handle_message(event):
         doujinNum = message.split(" ")[1]
         hentaiSearch = nHentaiSearcher(doujinNum)
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=hentaiSearch.searchTitle()))
-    elif "找本子 " in message:
+    elif '找本子 ' in message:
         tags = message.split(" ")
         toSearch = ""
         tagCnt =1
