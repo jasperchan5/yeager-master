@@ -32,15 +32,15 @@ class nHentaiSearcher:
             tagCnt += 1
         return self.__tempStr
 
-class tagSearcher:
-    def __init__(self,inputStr):
-        self.__target = requests.get("https://nhentai.net/search/?q="+inputStr)
-        self.__tempStr = ""
-    def searchDoujin(self):
-        page = BeautifulSoup(self.__target.text,"html.parser")
-        title = page.find_all("div","caption").text
-        self.__tempStr += title
-        return self.__tempStr
+# class tagSearcher:
+#     def __init__(self,inputStr):
+#         self.__target = requests.get("https://nhentai.net/search/?q="+inputStr)
+#         self.__tempStr = ""
+#     def searchDoujin(self):
+#         page = BeautifulSoup(self.__target.text,"html.parser")
+#         title = page.find_all("div","caption").text
+#         self.__tempStr += title
+#         return self.__tempStr
 
 class pixivSearcher:
     def __init__(self,num):
@@ -73,5 +73,5 @@ class pixivSearcher:
             tagCnt += 1
         return self.__tempStr
     
-a = tagSearcher(input())
-print(a.searchDoujin())
+# a = tagSearcher(input())
+# print(a.searchDoujin())
