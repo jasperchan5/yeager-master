@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import random as rd
-import pixivLogIn
+# import pixivLogIn
 
 class nHentaiSearcher:
     def __init__(self,num):
@@ -37,38 +37,41 @@ class nHentaiSearcher:
 class tagSearcher:
     def __init__(self,inputStr):
         self.__target = requests.get("https://nhentai.net/search/?q=" + inputStr)
-        self.__num = inputStr
+        self.__tag = inputStr
         self.__tempStr = ""
     def searchDoujin(self):
         page = BeautifulSoup(self.__target.text,"html.parser")
+        # 處理本子總數
         totalStr = page.find("h1").text
-        totalNum = totalStr.split(" ")[1]
+        quantity = totalStr.split(" ")[1]
         doujinNum = ""
         cnt = 0
-        for i in totalNum:
-            if totalNum[cnt] != ',':
-                doujinNum += totalNum[cnt]
+        for i in quantity:
+            if quantity[cnt] != ',':
+                doujinNum += quantity[cnt]
             cnt += 1
+        # 總頁數
         totalPageNum = int(int(doujinNum) / 25) + 1
         pageNum = rd.randint(1,int(totalPageNum))
+
         randNum = rd.randint(0,24)
-        self.__target = requests.get("https://nhentai.net/search/?q=" + self.__num + "&page=" + str(pageNum))
+        self.__target = requests.get("https://nhentai.net/search/?q=" + self.__tag + "&page=" + str(pageNum))
         page = BeautifulSoup(self.__target.text,"html.parser")
-        title = page.find_all("div","caption")[24].text
+        title = page.find_all("div","caption")[randNum].text
         self.__tempStr += title
         return self.__tempStr
 
 class pixivSearcher:
     def __init__(self):
-        self.__target = requests.get("https://www.pixiv.net")
+        self.__target = requests.get("https://" + pixivLogIn.login().text)
         self.__tempStr = ""
     def searchTitle(self):
-        pixivLogIn.login()
         page = BeautifulSoup(self.__target.text,"html.parser")
         title = page.find_all("section","jgyytr-0 leFYvF")
         titleCnt = 0
-        titles = ["\n"]
+        titles = [""]
         for i in title:
+            print("new_ ")
             titles += "[" + title[titleCnt].text + "]"
             titles += " "
             titleCnt += 1
@@ -76,7 +79,7 @@ class pixivSearcher:
                 titles += "\n"
         return self.processInfo(titles)
     def processInfo(self,titles):
-        self.__tempStr += "\n\n"
+        # self.__tempStr += "\n\n"
         tagCnt = 0
         for i in titles:
             self.__tempStr += titles[tagCnt]
@@ -108,5 +111,5 @@ class covid19:
         newDeathStr = deathStr.replace('+','')
         tempStr += '死亡： ' + newDeathStr
         return tempStr
-a = pixivSearcher()
-print(a.searchTitle())
+a = tagSearcher(input())
+print(a.searchDoujin())

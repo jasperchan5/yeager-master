@@ -1,4 +1,4 @@
-import requests as rq
+import requests
 from pyquery import PyQuery as pq
 
 baseHeader = {
@@ -6,7 +6,7 @@ baseHeader = {
     'Connection': 'keep-alive',
     'User-Agent': r'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36',
     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-     'Referer': 'https://accounts.pixiv.net/login',
+    'Referer': 'https://accounts.pixiv.net/login',
     'Accept-Encoding': 'gzip, deflate',
     'Accept-Language': 'zh-CN,zh;q=0.8',
 }
@@ -41,14 +41,15 @@ def get_post_key(s):
     page = s.get(url=url, data=data,headers=baseHeader).content
     doc = pq(page)
     post_key = doc('[name="post_key"]')[0].value
-    print("<post_key>    ", post_key)
+    # print("<post_key>    ", post_key)
     return post_key
 
 def set_PHPSESSID():
     """
     反爬措施，访问页面获得phpsessid的cookie值
     """
-    s = rq.session()
+    s = requests.session()
     url = "https://www.pixiv.net/"
     s.get(headers=baseHeader, url=url)
     return s
+print(login())

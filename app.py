@@ -53,7 +53,14 @@ def handle_message(event):
         hentaiSearch = nHentaiSearcher(doujinNum)
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=hentaiSearch.searchTitle()))
     elif '找本子 ' in message:
-        tag = message.split(" ")[1]
+        temp = message.split(" ")
+        tag = ""
+        tagCnt = 1
+        for i in temp:
+            tag += temp[tagCnt]
+            if tagCnt < len(temp) - 1:
+                tag += '+'
+                tagCnt += 1
         doujinSearch = tagSearcher(tag)
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=doujinSearch.searchDoujin()))
     elif message == '不可以色色':
