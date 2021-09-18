@@ -50,6 +50,7 @@ class tagSearcher:
             if quantity[cnt] != ',':
                 doujinNum += quantity[cnt]
             cnt += 1
+
         # 總頁數
         totalPageNum = int(int(doujinNum) / 25) + 1
         pageNum = rd.randint(1,int(totalPageNum))
@@ -111,5 +112,5 @@ class covid19:
         newDeathStr = deathStr.replace('+','')
         tempStr += '死亡： ' + newDeathStr
         return tempStr
-a = tagSearcher(input())
-print(a.searchDoujin())
+# a = tagSearcher(input())
+# print(a.searchDoujin())

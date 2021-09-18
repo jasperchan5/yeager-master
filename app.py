@@ -65,7 +65,6 @@ def handle_message(event):
             else:
                 tagCnt += 1
         doujinSearch = tagSearcher(tag)
-        print(tag)
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=doujinSearch.searchDoujin()))
     elif message == '不可以色色':
         illustNum = rd.randint(0,100000000)
