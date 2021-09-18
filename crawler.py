@@ -41,7 +41,7 @@ class tagSearcher:
         self.__tempStr = ""
     def searchDoujin(self):
         page = BeautifulSoup(self.__target.text,"html.parser")
-        
+    
         # 處理本子總數
         totalStr = page.find("h1").text
         quantity = totalStr.split(" ")[1]
@@ -60,6 +60,8 @@ class tagSearcher:
         self.__target = requests.get("https://nhentai.net/search/?q=" + self.__tag + "&page=" + str(pageNum))
         page = BeautifulSoup(self.__target.text,"html.parser")
         title = page.find_all("div","caption")[randNum].text
+        link = page.find_all('a', href=True)[23 + randNum]
+        self.__tempStr += "https://nhentai.net" + link['href'] + "\n\n"
         self.__tempStr += title
         return self.__tempStr
 
@@ -113,5 +115,5 @@ class covid19:
         newDeathStr = deathStr.replace('+','')
         tempStr += '死亡： ' + newDeathStr
         return tempStr
-# a = tagSearcher(input())
-# print(a.searchDoujin())
+a = tagSearcher(input())
+print(a.searchDoujin())
