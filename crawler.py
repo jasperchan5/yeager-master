@@ -41,6 +41,7 @@ class tagSearcher:
         self.__tempStr = ""
     def searchDoujin(self):
         page = BeautifulSoup(self.__target.text,"html.parser")
+        
         # 處理本子總數
         totalStr = page.find("h1").text
         quantity = totalStr.split(" ")[1]
