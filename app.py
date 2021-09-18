@@ -55,13 +55,17 @@ def handle_message(event):
     elif '找本子 ' in message:
         temp = message.split(" ")
         tag = ""
-        tagCnt = 1
+        tagCnt = 0
         for i in temp:
-            tag += temp[tagCnt]
-            if tagCnt < len(temp) - 1:
-                tag += '+'
+            if tagCnt != 0:
+                tag += temp[tagCnt]
+                if tagCnt < len(temp)-1:
+                    tag += '+'
+                    tagCnt += 1
+            else:
                 tagCnt += 1
         doujinSearch = tagSearcher(tag)
+        print(tag)
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=doujinSearch.searchDoujin()))
     elif message == '不可以色色':
         illustNum = rd.randint(0,100000000)
