@@ -14,7 +14,7 @@ class Solitaire:
             list += '野'
             cnt += 1
             randomNum = rd.randint(0,150)
-            if randomNum >=40 and randomNum <=120:
+            if randomNum >=30 and randomNum <=120:
                 list += '格'
                 cnt += 1
                 return '格 ' + str(cnt)
@@ -24,27 +24,41 @@ class Solitaire:
                 return '獸 ' + str(cnt)
             else: 
                 list = []
-                cnt = 0
+                cnt = -1
                 return '斷 ' + str(cnt)
         if temp == '炸':
-            # list += '炸'
-            if randomNum >=40: 
-                # list += '彈'
-                return '彈'
+            list += '炸'
+            cnt += 1
+            if randomNum >=30: 
+                list += '彈'
+                cnt += 1
+                return '彈 ' + str(cnt)
             else: 
-                # list = []
-                return '斷'
+                list = []
+                cnt = -1
+                return '斷 ' + str(cnt)
         if temp == '我':
-
-            if randomNum >=40:
-
-                return '的'
+            list += "我"
+            cnt += 1
+            if randomNum >=30 and list[cnt] == "彈":
+                list += "的"
+                cnt += 1
+                return '的 ' + str(cnt)
             else: 
-
-                return '斷'
+                list = []
+                cnt = -1
+                return '斷 ' + str(cnt)
         if temp == '最':
-            if randomNum >=40: return '愛'
-            else: return '斷'
+            list += "最"
+            cnt += 1
+            if randomNum >=30: 
+                list += "愛"
+                cnt += 1
+                return '愛 ' + str(cnt)
+            else: 
+                list = []
+                cnt = -1
+                return '斷 ' + str(cnt)
         if temp == '先': return '輩'
         if temp == '雷': return '普'
         if temp == '田': return '勝'

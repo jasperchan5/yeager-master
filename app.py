@@ -16,7 +16,7 @@ from crawler import nHentaiSearcher, pixivSearcher, tagSearcher, covid19
 from pyTree import BinarySearchTree
 
 solitaireList = []
-solitaireCnt = -1
+solitaireCnt = -2
 
 app = Flask(__name__)
 
