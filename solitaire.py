@@ -172,8 +172,3 @@ class Solitaire:
         
         if temp == '在我地盤這': return '你就得聽我的'
         if temp == '雨下整夜': return '我的愛溢出就像雨水'
-list = []
-for i in range(1,9):
-    a = Solitaire(input(),list)
-    print(a.processer())
-    print(list)
