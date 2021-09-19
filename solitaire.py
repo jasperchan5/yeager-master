@@ -45,14 +45,36 @@ class Solitaire:
             else: 
                 list = []
                 return '斷'
-        if temp == '先': return '輩'
-        if temp == '雷': return '普'
-        if temp == '田': return '勝'
-        if temp == '傑': return '是'
-        if temp == '口': return '交'
-        if temp == '惡': return '徒'
-        if temp == '南': return '一'
-        if temp == '中': return '蜜'
+        if temp == '先': 
+            list += "先"
+            list += "輩"
+            return '輩'
+        if temp == '唐': 
+            list += "唐"
+            list += "突"
+            return '突'
+        if temp == '惡' and list[list.index('惡') - 1] == '突': 
+            list = []
+            return '臭'
+        if temp == '田': 
+            list += "田"
+            list += "勝"
+            return '勝'
+        if temp == '傑': 
+            list += "傑"
+            list += "是"
+            return '是'
+        if temp == '口': 
+            list += "口"
+            list += "交"
+            return '交'
+        if temp == '惡' and list[list.index('惡') - 1] == '交': 
+            list = []
+            return '徒'
+        if temp == '南': 
+            return '一'
+        if temp == '中': 
+            return '蜜'
         if temp == '蜂': 
             if 0<=randomNum and randomNum <=20: return '是'
             elif 20<randomNum and randomNum <=40: return '喜'
