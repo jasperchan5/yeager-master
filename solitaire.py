@@ -7,7 +7,6 @@ class Solitaire:
     def processer(self):
         temp = self.inputStr
         list = self.list
-        cnt = self.cnt
         randomNum = rd.randint(0,100)
         if temp == '野':
             list += '野'
