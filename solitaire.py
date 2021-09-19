@@ -106,8 +106,11 @@ class Solitaire:
             return '秒'
         if temp == '七彩的微風': return '側著臉輕輕吹拂'
         if temp == '當天是空的': return '地是乾的'
-        if temp == '我難過的是': return '放棄你'
 
+        ## 我難過
+        if temp == '我難過的是': return '放棄你'
+        if temp == '放棄愛': return '放棄的夢被打碎'
+        if temp == '忍住悲哀': return '我以為 是成全'
         ### 周杰倫區 ###
 
         ## Jay ##
