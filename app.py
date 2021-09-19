@@ -77,6 +77,7 @@ def handle_message(event):
         covidBot = covid19()
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=covidBot.getDailyInfo()))
     elif '儲存資料 ' in message:
+        outList.clear()
         input = message.split(" ")[1]
         tree.addNode(rd.randint(1,10000),input)
         tree.inorder(tree.root,outList)
