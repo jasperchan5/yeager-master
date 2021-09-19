@@ -55,7 +55,7 @@ class Solitaire:
             return '突'
         if temp == '惡': 
             list += "惡"
-            if list[list.index('惡') - 1] == '突': 
+            if list[list.index('惡') - 1] == "突": 
                 list = []
                 return '臭'
         if temp == '田': 
