@@ -1,10 +1,9 @@
 import random as rd
 
 class Solitaire:
-    def __init__(self,inputStr,inputList,solitaireCnt):
+    def __init__(self,inputStr,inputList):
         self.inputStr = inputStr
         self.list = inputList
-        self.cnt = solitaireCnt
     def processer(self):
         temp = self.inputStr
         list = self.list
@@ -12,53 +11,40 @@ class Solitaire:
         randomNum = rd.randint(0,100)
         if temp == '野':
             list += '野'
-            cnt += 1
             randomNum = rd.randint(0,150)
             if randomNum >=30 and randomNum <=120:
                 list += '格'
-                cnt += 1
-                return '格 ' + str(cnt)
+                return '格'
             elif randomNum > 120: 
                 list += '獸'
-                cnt += 1
-                return '獸 ' + str(cnt)
+                return '獸'
             else: 
                 list = []
-                cnt = -1
-                return '斷 ' + str(cnt)
+                return '斷'
         if temp == '炸':
             list += '炸'
-            cnt += 1
             if randomNum >=30: 
                 list += '彈'
-                cnt += 1
-                return '彈 ' + str(cnt)
+                return '彈'
             else: 
                 list = []
-                cnt = -1
-                return '斷 ' + str(cnt)
+                return '斷'
         if temp == '我':
             list += "我"
-            cnt += 1
-            if randomNum >=30 and list[cnt] == "彈":
+            if randomNum >=30 and list[list.index('我') - 1] == '彈':
                 list += "的"
-                cnt += 1
-                return '的 ' + str(cnt)
+                return '的'
             else: 
                 list = []
-                cnt = -1
-                return '斷 ' + str(cnt)
+                return '斷'
         if temp == '最':
             list += "最"
-            cnt += 1
             if randomNum >=30: 
-                list += "愛"
-                cnt += 1
-                return '愛 ' + str(cnt)
+                list = []
+                return '愛'
             else: 
                 list = []
-                cnt = -1
-                return '斷 ' + str(cnt)
+                return '斷'
         if temp == '先': return '輩'
         if temp == '雷': return '普'
         if temp == '田': return '勝'
@@ -73,8 +59,25 @@ class Solitaire:
             elif 40<randomNum and randomNum <=60: return '常'
             elif 60<randomNum and randomNum <=80: return '被'
             elif 80<randomNum and randomNum <=100: return '都'
-        if temp == '星': return '爆'
-        if temp == '氣': return '流'
+        if temp == '星': 
+            list += '星'
+            list += '爆'
+            return '爆'
+        if temp == '氣': 
+            list += '氣'
+            list += '流'
+            return '流'
+        if temp == '斬': 
+            list += '斬'
+            list += '幫'
+            return '幫'
+        if temp == '我' and list[list.index('我') - 1] == '幫': 
+            list += '我'
+            list += '撐'
+            return '撐'
+        if temp == '十': 
+            list = []
+            return '秒'
         if temp == '七彩的微風': return '側著臉輕輕吹拂'
         if temp == '當天是空的': return '地是乾的'
         if temp == '我難過的是': return '放棄你'

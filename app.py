@@ -13,10 +13,8 @@ import random as rd
 
 from solitaire import Solitaire
 from crawler import nHentaiSearcher, pixivSearcher, tagSearcher, covid19
-from pyTree import BinarySearchTree
 
 solitaireList = []
-solitaireCnt = -2
 
 app = Flask(__name__)
 
