@@ -76,7 +76,7 @@ def handle_message(event):
         covidBot = covid19()
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=covidBot.getDailyInfo()))
     else:
-        soliModel = Solitaire(message,solitaireList)S
+        soliModel = Solitaire(message,solitaireList)
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=soliModel.processer()))
 
 import os
