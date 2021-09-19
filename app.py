@@ -76,14 +76,8 @@ def handle_message(event):
         covidBot = covid19()
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=covidBot.getDailyInfo()))
     else:
-        soliModel = Solitaire(message,solitaireList)
-        if soliModel.isEnd() == True:
-            resetSolitaire()
+        soliModel = Solitaire(message,solitaireList)S
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=soliModel.processer()))
-
-def resetSolitaire():
-        global solitaireList
-        solitaireList = []
 
 import os
 if __name__ == "__main__":

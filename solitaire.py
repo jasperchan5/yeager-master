@@ -4,10 +4,6 @@ class Solitaire:
     def __init__(self,inputStr,inputList):
         self.inputStr = inputStr
         self.list = inputList
-        self.end = False
-    def isEnd(self):
-        if self.end == True: return True
-        else: return False
     def processer(self):
         temp = self.inputStr
         list = self.list
@@ -22,8 +18,7 @@ class Solitaire:
                 list += '獸'
                 return '獸'
             else: 
-                list = []
-                self.end = True
+                list.clear()
                 return '斷'
         if temp == '炸':
             list += '炸'
@@ -31,8 +26,7 @@ class Solitaire:
                 list += '彈'
                 return '彈'
             else: 
-                list = []
-                self.end = True
+                list.clear()
                 return '斷'
         if temp == '我':
             list += "我"
@@ -41,18 +35,15 @@ class Solitaire:
                     list += "的"
                     return '的'
                 else: 
-                    list = []
-                    self.end = True
+                    list.clear()
                     return '斷'
         if temp == '最':
             list += "最"
             if randomNum >=30: 
-                list = []
-                self.end = True
+                list.clear()
                 return '愛'
             else: 
-                list = []
-                self.end = True
+                list.clear()
                 return '斷'
         if temp == '先': 
             list += "先"
@@ -65,8 +56,7 @@ class Solitaire:
         if temp == '惡': 
             list += "惡"
             if list[list.index('惡') - 1] == "突": 
-                list = []
-                self.end = True
+                list.clear()
                 return '臭'
         if temp == '田': 
             list += "田"
@@ -83,8 +73,7 @@ class Solitaire:
         if temp == '惡': 
             list += "惡"
             if list[list.index('惡') - 1] == '交': 
-                list = []
-                self.end = True
+                list.clear()
                 return '徒'
         if temp == '南': 
             return '一'
@@ -113,8 +102,7 @@ class Solitaire:
             list += '撐'
             return '撐'
         if temp == '十': 
-            list = []
-            self.end = True
+            list.clear()
             return '秒'
         if temp == '七彩的微風': return '側著臉輕輕吹拂'
         if temp == '當天是空的': return '地是乾的'
@@ -184,3 +172,8 @@ class Solitaire:
         
         if temp == '在我地盤這': return '你就得聽我的'
         if temp == '雨下整夜': return '我的愛溢出就像雨水'
+list = []
+for i in range(1,9):
+    a = Solitaire(input(),list)
+    print(a.processer())
+    print(list)
