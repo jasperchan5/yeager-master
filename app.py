@@ -76,6 +76,7 @@ def handle_message(event):
         covidBot = covid19()
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=covidBot.getDailyInfo()))
     elif message == '重置接龍':
+        global solitaireList
         solitaireList = []
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text="接龍已重置，大俠請重新來過"))
     else:
