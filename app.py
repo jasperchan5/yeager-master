@@ -13,6 +13,9 @@ import random as rd
 
 from solitaire import Solitaire
 from crawler import nHentaiSearcher, pixivSearcher, tagSearcher, covid19
+from pyTree import BinarySearchTree
+tree = BinarySearchTree()
+outList = []
 
 app = Flask(__name__)
 
@@ -73,6 +76,14 @@ def handle_message(event):
     elif message == '疫情報告':
         covidBot = covid19()
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=covidBot.getDailyInfo()))
+    elif '儲存資料 ' in message:
+        input = message.split(" ")[1]
+        tree.addNode(rd.randint(1,10000),input)
+        tree.inorder(tree.root,outList)
+        outStr = ""
+        for i in range(0,len(outList)):
+            outStr += outList[i][0] + ',' + outList[i][1] + '\n'
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=outStr))
     else:
         soliModel = Solitaire(message)
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=soliModel.processer()))
