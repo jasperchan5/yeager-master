@@ -53,9 +53,11 @@ class Solitaire:
             list += "唐"
             list += "突"
             return '突'
-        if temp == '惡' and list[list.index('惡') - 1] == '突': 
-            list = []
-            return '臭'
+        if temp == '惡': 
+            list += "惡"
+            if list[list.index('惡') - 1] == '突': 
+                list = []
+                return '臭'
         if temp == '田': 
             list += "田"
             list += "勝"
@@ -68,9 +70,11 @@ class Solitaire:
             list += "口"
             list += "交"
             return '交'
-        if temp == '惡' and list[list.index('惡') - 1] == '交': 
-            list = []
-            return '徒'
+        if temp == '惡': 
+            list += "惡"
+            if list[list.index('惡') - 1] == '交': 
+                list = []
+                return '徒'
         if temp == '南': 
             return '一'
         if temp == '中': 
