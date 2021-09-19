@@ -5,6 +5,9 @@ class Solitaire:
         self.inputStr = inputStr
         self.list = inputList
         self.end = False
+    def isEnd(self):
+        if self.end == True: return True
+        else: return False
     def processer(self):
         temp = self.inputStr
         list = self.list
