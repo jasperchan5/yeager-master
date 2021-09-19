@@ -1,23 +1,47 @@
 import random as rd
 
 class Solitaire:
-    def __init__(self,inputStr):
+    def __init__(self,inputStr,inputList,solitaireCnt):
         self.inputStr = inputStr
-    
+        self.list = inputList
+        self.cnt = solitaireCnt
     def processer(self):
         temp = self.inputStr
+        list = self.list
+        cnt = self.cnt
         randomNum = rd.randint(0,100)
         if temp == '野':
+            list += '野'
+            cnt += 1
             randomNum = rd.randint(0,150)
-            if randomNum >=40 and randomNum <=120: return '格'
-            elif randomNum > 120: return '獸'
-            else: return '斷'
+            if randomNum >=40 and randomNum <=120:
+                list += '格'
+                cnt += 1
+                return '格 ' + str(cnt)
+            elif randomNum > 120: 
+                list += '獸'
+                cnt += 1
+                return '獸 ' + str(cnt)
+            else: 
+                list = []
+                cnt = 0
+                return '斷 ' + str(cnt)
         if temp == '炸':
-            if randomNum >=40: return '彈'
-            else: return '斷'
+            # list += '炸'
+            if randomNum >=40: 
+                # list += '彈'
+                return '彈'
+            else: 
+                # list = []
+                return '斷'
         if temp == '我':
-            if randomNum >=40: return '的'
-            else: return '斷'
+
+            if randomNum >=40:
+
+                return '的'
+            else: 
+
+                return '斷'
         if temp == '最':
             if randomNum >=40: return '愛'
             else: return '斷'

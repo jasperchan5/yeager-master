@@ -31,11 +31,7 @@ class BinarySearchTree:
             if key > temp.key:
                 temp.right = newNode
             else:
-                temp.left = newNode
-    def search(self,root,target):
-        
-    def remove(self,root):
-
+                temp.left = newNode 
     def inorder(self,current,outList):
         if current != 0:
             self.inorder(current.left,outList)
