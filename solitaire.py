@@ -30,12 +30,13 @@ class Solitaire:
                 return '斷'
         if temp == '我':
             list += "我"
-            if randomNum >=30 and list[list.index('我') - 1] == '彈':
-                list += "的"
-                return '的'
-            else: 
-                list = []
-                return '斷'
+            if list[list.index('我') - 1] == '彈':
+                if randomNum >=30 :
+                    list += "的"
+                    return '的'
+                else: 
+                    list = []
+                    return '斷'
         if temp == '最':
             list += "最"
             if randomNum >=30: 
