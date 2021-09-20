@@ -72,7 +72,7 @@ def handle_message(event):
         except:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text="哭啊，找本失敗！"))
     elif message == '不可以色色' or message == '可以色色':
-        pixivBot = pixivSearcher()
+        pixivBot = pixivSearcher(message)
         try:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text=pixivBot.getImage()))
         except:
