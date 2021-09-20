@@ -115,5 +115,5 @@ class covid19:
         tempStr += '死亡： ' + newDeathStr
         return tempStr
 
-a = pixivSearcher(input())
-print(a.getImage())
+# a = pixivSearcher(input())
+# print(a.getImage())
