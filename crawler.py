@@ -10,7 +10,7 @@ class nHentaiSearcher:
         self.__tempStr = ""
     def searchTitle(self):
         if self.__target.status_code != 200:
-            return self.__num + "\n哭啊，查無此本"
+            return self.__num + "\n哭啊，查無此本！"
         else: 
             page = BeautifulSoup(self.__target.text,"html.parser")
             title = page.find("h2","title").text
