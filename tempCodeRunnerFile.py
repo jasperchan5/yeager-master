@@ -1,2 +1,2 @@
-(input())
+ut())
 print(a.getImage())

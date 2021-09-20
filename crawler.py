@@ -82,11 +82,11 @@ class pixivSearcher:
         tempStr += titles[imgNum].text +'\n'
         # 處理 transparent
         tempImg = images[imgNum]['src']
-        newImg = tempImg.replace("i.","s.")
-        newImg2 = newImg.replace(
+        tempImg = tempImg.replace("s.","i.")
+        tempImg = tempImg.replace(
             "/www/images/common/transparent.gif",
-            "/img-master/img/2021/09/18/00/00/08/92817111_p0_master1200.jpg")
-        tempStr += newImg2
+            "/img-original/img/2021/09/18/00/00/08/92817111_p0.jpg")
+        tempStr += tempImg
         return tempStr  
 
 class covid19:
@@ -115,5 +115,5 @@ class covid19:
         tempStr += '死亡： ' + newDeathStr
         return tempStr
 
-# a = pixivSearcher(input())
-# print(a.getImage())
+a = pixivSearcher(input())
+print(a.getImage())
