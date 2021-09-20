@@ -10,8 +10,8 @@ baseHeader = {
     'Accept-Encoding': 'gzip, deflate',
     'Accept-Language': 'zh-CN,zh;q=0.8',
 }
-name = "jasperchan@hotmail.com.tw"
-password = "11015ncsj"
+name = "B09705026@ntu.edu.tw"
+password = "Db168245"
 
 def login():
     global name, password
@@ -29,9 +29,9 @@ def login():
     return session
 
 def get_post_key(s):
-    """
-    反爬措施：登录需要post_key参数
-    """
+    # """
+    # 反爬措施：登录需要post_key参数
+    # """
     url = "https://accounts.pixiv.net/login?lang=zh&source=pc&view_type=page&ref=wwwtop_accounts_index"
     data = {"lang": "zh",
             "source": "pc",
@@ -44,9 +44,9 @@ def get_post_key(s):
     return post_key
 
 def set_PHPSESSID():
-    """
-    反爬措施，访问页面获得phpsessid的cookie值
-    """
+    # """
+    # 反爬措施，访问页面获得phpsessid的cookie值
+    # """
     s = rq.session()
     url = "https://www.pixiv.net/"
     s.get(headers=baseHeader, url=url)

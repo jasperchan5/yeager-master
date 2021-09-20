@@ -70,17 +70,23 @@ class pixivSearcher:
         session = pixivLogin.login()
         self.crawlNum = 0
         if mode == "不可以色色":
-            self.target = session.get("https://www.pixiv.net/ranking.php?mode=daily")
+            self.target = requests.get("https://www.pixiv.net/ranking.php?mode=daily")
         elif mode == "可以色色":
             self.target = requests.get("https://www.pixiv.net/ranking.php?mode=daily_r18")
     def getImage(self):
         page = BeautifulSoup(self.target.text,"html.parser")
         tempStr = ""
-        titles = page.find_all("a","iasfms-4 hegAwd gtm-toppage-thumbnail-illustration-recommend-works")
+        titles = page.find_all("a","title")
         images = page.find_all("img")
-        imgNum = rd.randint(0,2)
+        imgNum = rd.randint(0,49)
         tempStr += titles[imgNum].text +'\n'
-        tempStr += images[imgNum]['src']
+        # 處理 transparent
+        tempImg = images[imgNum]['src']
+        newImg = tempImg.replace("i.","s.")
+        newImg2 = newImg.replace(
+            "/www/images/common/transparent.gif",
+            "/img-master/img/2021/09/18/00/00/08/92817111_p0_master1200.jpg")
+        tempStr += newImg2
         return tempStr  
 
 class covid19:
