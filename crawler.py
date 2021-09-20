@@ -70,7 +70,7 @@ class pixivSearcher:
         session = pixivLogin.login()
         self.crawlNum = 0
         if mode == "不可以色色":
-            self.target = session.get("https://www.pixiv.net/")
+            self.target = session.get("https://www.pixiv.net/ranking.php?mode=daily")
         elif mode == "可以色色":
             self.target = requests.get("https://www.pixiv.net/ranking.php?mode=daily_r18")
     def getImage(self):
