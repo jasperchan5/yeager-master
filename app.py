@@ -74,7 +74,9 @@ def handle_message(event):
     elif message == '不可以色色' or message == '可以色色':
         pixivBot = pixivSearcher(message)
         try:
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=pixivBot.getImage()))
+            line_bot_api.reply_message(event.reply_token, ImageSendMessage(
+                                                            original_content_url = pixivBot.getImage(),
+                                                            preview_image_url = pixivBot.getImage()))
         except:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text="哭啊，找本失敗！"))
     elif message == '疫情報告':
