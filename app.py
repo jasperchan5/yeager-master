@@ -46,7 +46,7 @@ def handle_message(event):
     if message == '指令':
         orders = "很高興認識你，我是接龍大師。\n\n【 功能列表 】\n\n─〔接龍〕─\n野格炸彈\n星爆\n田勝傑\n南一中蜜蜂\n我難過\n\n─〔推本子〕─\n隨機推本：請輸入「神之語言」\n本號查詢：請輸入「神之語言 <任意數字>」\n標籤查詢：請輸入「找本子 <tag1> <tag2>...」\n\n─〔推圖〕─\nR-18：請輸入「可以色色」（開發中）\n正常向：請輸入「不可以色色」（開發中）\n\n─〔每日疫情資訊〕─\n請輸入「疫情報告」\n\n更多功能敬請期待..."
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=orders))
-    elif message == '神之語言' or message == '可以色色':
+    elif message == '神之語言':
         randNum = rd.randint(0,400000)
         hentaiSearch = nHentaiSearcher(str(randNum))
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=hentaiSearch.searchTitle()))
@@ -68,13 +68,9 @@ def handle_message(event):
                 tagCnt += 1
         doujinSearch = tagSearcher(tag)
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=doujinSearch.searchDoujin()))
-    elif message == '不可以色色':
-        try:
-            illustNum = rd.randint(0,100000000)
-            illustSearch = pixivSearcher(str(illustNum))
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=illustSearch.searchTitle()))
-        except:
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="功能開發中"))
+    elif message == '不可以色色' or message == '可以色色':
+        pixivBot = pixivSearcher()
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=pixivBot.getImage()))
     elif message == '疫情報告':
         covidBot = covid19()
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=covidBot.getDailyInfo()))

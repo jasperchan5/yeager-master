@@ -71,15 +71,15 @@ class pixivSearcher:
         self.crawlNum = 0
         self.tempStr = ""
         if mode == "不可以色色":
-            self.target = session.get("https://www.pixiv.net/ranking.php?mode=daily")
+            self.target = session.get("https://www.pixiv.net/")
         elif mode == "可以色色":
-            self.target = session.get("https://www.pixiv.net/ranking.php?mode=daily_r18")
+            self.target = requests.get("https://www.pixiv.net/ranking.php?mode=daily_r18")
     def getImage(self):
         page = BeautifulSoup(self.target.text,"html.parser")
-        titles = page.find_all("a","title")
+        titles = page.find_all("a","iasfms-4 hegAwd gtm-toppage-thumbnail-illustration-recommend-works")
         images = page.find_all("img")
-        imgNum = rd.randint(0,49)
-        print("rank:" + str(imgNum))
+        imgNum = rd.randint(0,2)
+        print("rank:" + str(imgNum + 1))
         self.tempStr += titles[imgNum].text +'\n'
         self.tempStr += images[imgNum]['src']
         return self.tempStr  
