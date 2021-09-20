@@ -1,7 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 import random as rd
-# import pixivLogIn
 
 class nHentaiSearcher:
     def __init__(self,num):
@@ -63,31 +62,6 @@ class tagSearcher:
         link = page.find_all('a', href=True)[23 + randNum]
         self.__tempStr += "https://nhentai.net" + link['href'] + "\n\n"
         self.__tempStr += title
-        return self.__tempStr
-
-class pixivSearcher:
-    def __init__(self):
-        self.__target = requests.get("https://" + pixivLogIn.login().text)
-        self.__tempStr = ""
-    def searchTitle(self):
-        page = BeautifulSoup(self.__target.text,"html.parser")
-        title = page.find_all("section","jgyytr-0 leFYvF")
-        titleCnt = 0
-        titles = [""]
-        for i in title:
-            print("new_ ")
-            titles += "[" + title[titleCnt].text + "]"
-            titles += " "
-            titleCnt += 1
-            if titleCnt % 3 == 0:
-                titles += "\n"
-        return self.processInfo(titles)
-    def processInfo(self,titles):
-        # self.__tempStr += "\n\n"
-        tagCnt = 0
-        for i in titles:
-            self.__tempStr += titles[tagCnt]
-            tagCnt += 1
         return self.__tempStr
 
 class covid19:

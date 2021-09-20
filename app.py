@@ -69,9 +69,12 @@ def handle_message(event):
         doujinSearch = tagSearcher(tag)
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=doujinSearch.searchDoujin()))
     elif message == '不可以色色':
-        illustNum = rd.randint(0,100000000)
-        illustSearch = pixivSearcher(str(illustNum))
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=illustSearch.searchTitle()))
+        try:
+            illustNum = rd.randint(0,100000000)
+            illustSearch = pixivSearcher(str(illustNum))
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=illustSearch.searchTitle()))
+        except:
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="功能開發中"))
     elif message == '疫情報告':
         covidBot = covid19()
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=covidBot.getDailyInfo()))
