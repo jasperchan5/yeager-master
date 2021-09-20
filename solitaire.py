@@ -45,6 +45,23 @@ class Solitaire:
             else: 
                 list.clear()
                 return '斷'
+        if temp == '超':
+            list += "超"
+            if randomNum >=30: 
+                list += "爽"
+                return '爽'
+            else: 
+                list.clear()
+                return '斷'
+        if temp == '口':
+            list += "口"
+            if list[list.index('口') - 1] == '爽':
+                if randomNum >=30 :
+                    list.clear()
+                    return '感'
+                else: 
+                    list.clear()
+                    return '斷'
         if temp == '先': 
             list += "先"
             list += "輩"
