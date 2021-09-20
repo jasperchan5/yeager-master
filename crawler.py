@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import random as rd
+import pixivLogin
 
 class nHentaiSearcher:
     def __init__(self,num):
@@ -64,6 +65,25 @@ class tagSearcher:
         self.__tempStr += title
         return self.__tempStr
 
+class pixivSearcher:
+    def __init__(self,mode):
+        session = pixivLogin.login()
+        self.crawlNum = 0
+        self.tempStr = ""
+        if mode == "不可以色色":
+            self.target = session.get("https://www.pixiv.net/ranking.php?mode=daily")
+        elif mode == "可以色色":
+            self.target = session.get("https://www.pixiv.net/ranking.php?mode=daily_r18")
+    def getImage(self):
+        page = BeautifulSoup(self.target.text,"html.parser")
+        titles = page.find_all("a","title")
+        images = page.find_all("img")
+        imgNum = rd.randint(0,49)
+        print("rank:" + str(imgNum))
+        self.tempStr += titles[imgNum].text +'\n'
+        self.tempStr += images[imgNum]['src']
+        return self.tempStr  
+
 class covid19:
     def __init__(self) -> None:
         self.__target = requests.get("https://covid-19.nchc.org.tw/dt_005-covidTable_taiwan.php")
@@ -89,5 +109,6 @@ class covid19:
         newDeathStr = deathStr.replace('+','')
         tempStr += '死亡： ' + newDeathStr
         return tempStr
-# a = tagSearcher(input())
-# print(a.searchDoujin())
+
+a = pixivSearcher(input())
+print(a.getImage())

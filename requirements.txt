@@ -3,7 +3,3 @@ flask
 requests
 bs4
 pyquery
-urllib
-urllib.request
-urllib.parse
-http
