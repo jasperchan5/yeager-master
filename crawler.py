@@ -79,7 +79,6 @@ class pixivSearcher:
         titles = page.find_all("a","iasfms-4 hegAwd gtm-toppage-thumbnail-illustration-recommend-works")
         images = page.find_all("img")
         imgNum = rd.randint(0,2)
-        print("rank:" + str(imgNum + 1))
         self.tempStr += titles[imgNum].text +'\n'
         self.tempStr += images[imgNum]['src']
         return self.tempStr  
@@ -110,5 +109,5 @@ class covid19:
         tempStr += '死亡： ' + newDeathStr
         return tempStr
 
-a = pixivSearcher(input())
-print(a.getImage())
+# a = pixivSearcher(input())
+# print(a.getImage())
