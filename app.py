@@ -1,6 +1,5 @@
-# Import libraries
+# coding:utf-8
 from flask import Flask, request, abort
-
 from linebot import (
     LineBotApi, WebhookHandler
 )
@@ -44,7 +43,7 @@ def handle_message(event):
 
     message = event.message.text
     if message == '指令':
-        orders = "很高興認識你，我是接龍大師。\n\n【 功能列表 】\n\n─〔接龍〕─\n野格炸彈\n星爆\n田勝傑\n南一中蜜蜂\n我難過\n\n─〔推本子〕─\n隨機推本：請輸入「神之語言」\n本號查詢：請輸入「神之語言 <任意數字>」\n標籤查詢：請輸入「找本子 <tag1> <tag2>...」\n\n─〔推圖〕─\nR-18：請輸入「可以色色」（開發中）\n正常向：請輸入「不可以色色」（開發中）\n\n─〔每日疫情資訊〕─\n請輸入「疫情報告」\n\n更多功能敬請期待..."
+        orders = '很高興認識你，我是接龍大師。\n\n【 功能列表 】\n\n─〔接龍〕─\n野格炸彈\n星爆\n田勝傑\n南一中蜜蜂\n我難過\n\n─〔推本子〕─\n隨機推本：請輸入「神之語言」\n本號查詢：請輸入「神之語言 <任意數字>」\n標籤查詢：請輸入「找本子 <tag1> <tag2>...」\n\n─〔推圖〕─\nR-18：請輸入「可以色色」（開發中）\n正常向：請輸入「不可以色色」（開發中）\n\n─〔每日疫情資訊〕─\n請輸入「疫情報告」\n\n更多功能敬請期待...'
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=orders))
     elif message == '神之語言':
         randNum = rd.randint(0,400000)
@@ -78,7 +77,7 @@ def handle_message(event):
                                                             original_content_url = pixivBot.getImage(),
                                                             preview_image_url = pixivBot.getImage()))
         except:
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="哭啊，找本失敗！"))
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="哭啊，找圖失敗！"))
     elif message == '疫情報告':
         covidBot = covid19()
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=covidBot.getDailyInfo()))

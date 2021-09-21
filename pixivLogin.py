@@ -10,7 +10,7 @@ baseHeader = {
     'Accept-Encoding': 'gzip, deflate',
     'Accept-Language': 'zh-CN,zh;q=0.8',
 }
-name = "B09705026@ntu.edu.tw"
+name = "user_ekep8422"
 password = "Db168245"
 
 def login():
@@ -48,6 +48,8 @@ def set_PHPSESSID():
     # 反爬措施，访问页面获得phpsessid的cookie值
     # """
     s = rq.session()
-    url = "https://www.pixiv.net/"
+    url = "https://www.pixiv.net/ranking.php?mode=daily"
     s.get(headers=baseHeader, url=url)
     return s
+
+# print(login())

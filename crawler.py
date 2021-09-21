@@ -55,11 +55,11 @@ class tagSearcher:
         # 總頁數
         totalPageNum = int(int(doujinNum) / 25) + 1
         pageNum = rd.randint(1,int(totalPageNum))
-
-        randNum = rd.randint(0,24)
+        titles = page.find_all("div","caption")
+        randNum = rd.randint(0,len(titles) - 1)
         self.__target = requests.get("https://nhentai.net/search/?q=" + self.__tag + "&page=" + str(pageNum))
         page = BeautifulSoup(self.__target.text,"html.parser")
-        title = page.find_all("div","caption")[randNum].text
+        title = titles[randNum].text
         link = page.find_all('a', href=True)[23 + randNum]
         self.__tempStr += "https://nhentai.net" + link['href'] + "\n\n"
         self.__tempStr += title
@@ -67,10 +67,10 @@ class tagSearcher:
 
 class pixivSearcher:
     def __init__(self,mode):
-        session = pixivLogin.login()
         self.crawlNum = 0
+        pixivLogin.login()
         if mode == "不可以色色":
-            self.target = requests.get("https://www.pixiv.net/ranking.php?mode=daily")
+            self.target = requests.Session().get("https://www.pixiv.net/ranking.php?mode=daily")
         elif mode == "可以色色":
             self.target = requests.get("https://www.pixiv.net/ranking.php?mode=daily_r18")
     def getImage(self):
@@ -85,7 +85,7 @@ class pixivSearcher:
         tempImg = tempImg.replace("s.","i.")
         tempImg = tempImg.replace(
             "/www/images/common/transparent.gif",
-            "/img-original/img/2021/09/18/00/00/08/92817111_p0.jpg")
+            "/img-master/img/2021/09/18/00/00/08/92817111_p0_master1200.jpg")
         tempStr += tempImg
         return tempStr  
 
@@ -115,5 +115,5 @@ class covid19:
         tempStr += '死亡： ' + newDeathStr
         return tempStr
 
-# a = pixivSearcher(input())
-# print(a.getImage())
+a = tagSearcher(input())
+print(a.searchDoujin())

@@ -1,2 +1,0 @@
-ut())
-print(a.getImage())
