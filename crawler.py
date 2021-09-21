@@ -115,5 +115,5 @@ class covid19:
         tempStr += '死亡： ' + newDeathStr
         return tempStr
 
-a = tagSearcher(input())
-print(a.searchDoujin())
+# a = tagSearcher(input())
+# print(a.searchDoujin())
