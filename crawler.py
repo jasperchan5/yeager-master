@@ -56,6 +56,7 @@ class tagSearcher:
         totalPageNum = int(int(doujinNum) / 25) + 1
         pageNum = rd.randint(1,int(totalPageNum))
         titles = page.find_all("div","caption")
+        # print(len(titles))
         randNum = rd.randint(0,len(titles) - 1)
         self.__target = requests.get("https://nhentai.net/search/?q=" + self.__tag + "&page=" + str(pageNum))
         page = BeautifulSoup(self.__target.text,"html.parser")
