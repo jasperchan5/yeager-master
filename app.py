@@ -77,7 +77,7 @@ def handle_message(event):
                                                             original_content_url = pixivBot.getImage(),
                                                             preview_image_url = pixivBot.getImage()))
         except:
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="哭啊，找圖失敗！"))
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="https://imgur.com/2CWEKvS"))
     elif message == '疫情報告':
         covidBot = covid19()
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=covidBot.getDailyInfo()))
