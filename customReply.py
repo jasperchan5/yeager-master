@@ -14,6 +14,8 @@
 
 # """linebot.models.send_messages module."""
 
+from linebot.models import *
+
 from __future__ import unicode_literals
 
 from abc import ABCMeta
