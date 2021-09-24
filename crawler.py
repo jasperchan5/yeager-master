@@ -73,14 +73,23 @@ class imageSearcher:
         elif mode == "可以色色":
             self.target = requests.get("https://www.pixiv.net/ranking.php?mode=daily_r18")
     def getImage(self):
+        # 首頁找圖
         page = BeautifulSoup(self.target.text,"html.parser")
         tempStr = ""
         title = page.find_all("div","post_content index_page")
         titleNum = rd.randint(1,2)
-        images = title[titleNum].find_all("img","img_sp")
+        images = title[titleNum].find_all("span","img_block2")
         rand = rd.randint(0,11)
-        img = images[rand]['src']
-        tempStr += "https:" + img
+        img = images[rand]
+        link = img.find("a")['href']
+        link = link.replace("en","zh_CN")
+
+        # 進入該圖
+        self.target = requests.get("https://anime-pictures.net" + link)
+        page = BeautifulSoup(self.target.text,"html.parser")
+        truePage = page.find("div",{"id":"big_preview_cont"})
+        trueLink = truePage.find("a")['href']
+        tempStr += "https://anime-pictures.net" + trueLink
         return tempStr  
 
 class covid19:

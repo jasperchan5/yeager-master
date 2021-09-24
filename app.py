@@ -1,5 +1,7 @@
 # coding:utf-8
+from bs4 import BeautifulSoup
 from flask import Flask, request, abort
+import requests
 from linebot import (
     LineBotApi, WebhookHandler
 )
@@ -71,11 +73,12 @@ def handle_message(event):
         except:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text="哭啊，找本失敗！"))
     elif message == '不可以色色' or message == '可以色色':
-        pixivBot = imageSearcher(message)
+        imgBot = imageSearcher(message)
+        imgLink = imgBot.getImage()
         try:
             line_bot_api.reply_message(event.reply_token, ImageSendMessage(
-                                                            original_content_url = pixivBot.getImage(),
-                                                            preview_image_url = pixivBot.getImage()))
+                                                            original_content_url = imgLink,
+                                                            preview_image_url = imgLink))
         except:
             line_bot_api.reply_message(event.reply_token, ImageSendMessage(
                                                             original_content_url = 'https://imgur.com/mj4CCdA.png',
