@@ -12,24 +12,10 @@ import random as rd
 
 from solitaire import Solitaire
 from crawler import nHentaiSearcher, pixivSearcher, tagSearcher, covid19
-# from customReply import CustomTypeSendMessage
 
 solitaireList = []
 
 app = Flask(__name__)
-
-class CustomTypeSendMessage(SendMessage):
-
-    def __init__(self, text=None, quick_reply=None, **kwargs):
-        if text == 'https://imgur.com/2CWEKvS.png':
-            super(CustomTypeSendMessage, self).__init__(quick_reply=quick_reply, **kwargs)
-            self.type = 'image'
-            self.original_content_url = text
-            self.preview_image_url = text
-        else:
-            super(CustomTypeSendMessage, self).__init__(quick_reply=quick_reply, **kwargs)
-            self.type = 'text'
-            self.text = text
 
 # Channel Access Token
 line_bot_api = LineBotApi('7bUWhyl8qAlpY/WxuwtqnDUSfXc1qIPHH/3U5MqfxcG5dT0vtAu1GWGD9QdW8zJ4ek/GpCVucdCRzxFvsuYK0nHSjG/aBNiLN6AVZm4+NeOyslqK4qrk9lLULHu7/o/xNkcA/EGYXrepyac8W39uJQdB04t89/1O/w1cDnyilFU=')
@@ -99,25 +85,32 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=covidBot.getDailyInfo()))
     elif message == '星爆':
 
-        line_bot_api.reply_message(event.reply_token, CustomTypeSendMessage(
+        line_bot_api.reply_message(event.reply_token, ImageSendMessage(
                                                             original_content_url = 'https://imgur.com/2CWEKvS.png',
                                                             preview_image_url = 'https://imgur.com/2CWEKvS.png'))
     elif message == '接龍進度':
-        cnt = 0
-        tempStr = ""
-        for i in solitaireList:
-            tempStr += solitaireList[cnt]
-            cnt += 1
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=tempStr))
+        if len(solitaireList) == 0:
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="無接龍進行中"))
+        else:
+            cnt = 0
+            tempStr = ""
+            for i in solitaireList:
+                tempStr += solitaireList[cnt]
+                cnt += 1
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=tempStr))
     else:
         soliModel = Solitaire(message,solitaireList)
         answer = soliModel.processer()
         if len(solitaireList) != 0 and solitaireList[len(solitaireList) - 1] == '秒':
             solitaireList.clear()
-            tempList = ['秒','https://imgur.com/2CWEKvS.png','https://imgur.com/2CWEKvS.png']
-            line_bot_api.reply_message(event.reply_token, CustomTypeSendMessage(text=tempList))
+            replyArr = []
+            replyArr.append(textSendMessage(text="秒"))
+            replyArr.append(ImageSendMessage(
+                                            original_content_url = 'https://imgur.com/2CWEKvS.png',
+                                            preview_image_url = 'https://imgur.com/2CWEKvS.png'))
+            line_bot_api.reply_message(event.reply_token, replyArr)
         elif len(solitaireList) >= 0:
-            line_bot_api.reply_message(event.reply_token, CustomTypeSendMessage(text=answer))
+            line_bot_api.reply_message(event.reply_token, textSendMessage(text=answer))
 
 import os
 if __name__ == "__main__":
