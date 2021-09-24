@@ -102,6 +102,13 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, CustomTypeSendMessage(
                                                             original_content_url = 'https://imgur.com/2CWEKvS.png',
                                                             preview_image_url = 'https://imgur.com/2CWEKvS.png'))
+    elif message == '接龍進度':
+        cnt = 0
+        tempStr = ""
+        for i in solitaireList:
+            tempStr += solitaireList[cnt]
+            cnt += 1
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=tempStr))
     else:
         soliModel = Solitaire(message,solitaireList)
         answer = soliModel.processer()
