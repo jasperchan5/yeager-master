@@ -80,7 +80,7 @@ class imageSearcher:
         images = title[titleNum].find_all("img","img_sp")
         rand = rd.randint(0,11)
         img = images[rand]['src']
-        tempStr += "https:" + img + ".avif"
+        tempStr += "https:" + img
         return tempStr  
 
 class covid19:
