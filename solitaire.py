@@ -40,7 +40,6 @@ class Solitaire:
         if temp == '最':
             list += "最"
             if randomNum >=30: 
-                list.clear()
                 return '愛'
             else: 
                 list.clear()
