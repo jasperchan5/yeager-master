@@ -30,7 +30,6 @@ class CustomTypeSendMessage(SendMessage):
             super(CustomTypeSendMessage, self).__init__(quick_reply=quick_reply, **kwargs)
             self.type = 'text'
             self.text = text
-            self.emojis = emojis
 
 # Channel Access Token
 line_bot_api = LineBotApi('7bUWhyl8qAlpY/WxuwtqnDUSfXc1qIPHH/3U5MqfxcG5dT0vtAu1GWGD9QdW8zJ4ek/GpCVucdCRzxFvsuYK0nHSjG/aBNiLN6AVZm4+NeOyslqK4qrk9lLULHu7/o/xNkcA/EGYXrepyac8W39uJQdB04t89/1O/w1cDnyilFU=')
