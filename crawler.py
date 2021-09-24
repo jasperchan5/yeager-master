@@ -1,7 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 import random as rd
-import pixivLogin
 
 class nHentaiSearcher:
     def __init__(self,num):
@@ -66,28 +65,22 @@ class tagSearcher:
         self.__tempStr += title
         return self.__tempStr
 
-class pixivSearcher:
+class imageSearcher:
     def __init__(self,mode):
         self.crawlNum = 0
-        pixivLogin.login()
         if mode == "不可以色色":
-            self.target = requests.Session().get("https://www.pixiv.net/ranking.php?mode=daily")
+            self.target = requests.get("https://anime-pictures.net/")
         elif mode == "可以色色":
             self.target = requests.get("https://www.pixiv.net/ranking.php?mode=daily_r18")
     def getImage(self):
         page = BeautifulSoup(self.target.text,"html.parser")
         tempStr = ""
-        titles = page.find_all("a","title")
-        images = page.find_all("img")
-        imgNum = rd.randint(0,49)
-        tempStr += titles[imgNum].text +'\n'
-        # 處理 transparent
-        tempImg = images[imgNum]['src']
-        tempImg = tempImg.replace("s.","i.")
-        tempImg = tempImg.replace(
-            "/www/images/common/transparent.gif",
-            "/img-master/img/2021/09/18/00/00/08/92817111_p0_master1200.jpg")
-        tempStr += tempImg
+        title = page.find_all("div","post_content index_page")
+        titleNum = rd.randint(1,2)
+        images = title[titleNum].find_all("img","img_sp")
+        rand = rd.randint(0,11)
+        img = images[rand]['src']
+        tempStr += "https:" + img + ".avif"
         return tempStr  
 
 class covid19:
@@ -116,5 +109,5 @@ class covid19:
         tempStr += '死亡： ' + newDeathStr
         return tempStr
 
-# a = tagSearcher(input())
-# print(a.searchDoujin())
+a = imageSearcher("不可以色色")
+print(a.getImage())

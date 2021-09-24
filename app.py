@@ -11,7 +11,7 @@ from linebot.models import *
 import random as rd
 
 from solitaire import Solitaire
-from crawler import nHentaiSearcher, pixivSearcher, tagSearcher, covid19
+from crawler import nHentaiSearcher, imageSearcher, tagSearcher, covid19
 
 solitaireList = []
 
@@ -71,15 +71,15 @@ def handle_message(event):
         except:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text="哭啊，找本失敗！"))
     elif message == '不可以色色' or message == '可以色色':
-        pixivBot = pixivSearcher(message)
+        pixivBot = imageSearcher(message)
         try:
             line_bot_api.reply_message(event.reply_token, ImageSendMessage(
                                                             original_content_url = pixivBot.getImage(),
                                                             preview_image_url = pixivBot.getImage()))
         except:
             line_bot_api.reply_message(event.reply_token, ImageSendMessage(
-                                                            original_content_url = 'https://imgur.com/2CWEKvS.png',
-                                                            preview_image_url = 'https://imgur.com/2CWEKvS.png'))
+                                                            original_content_url = 'https://imgur.com/mj4CCdA.png',
+                                                            preview_image_url = 'https://imgur.com/mj4CCdA.png'))
     elif message == '疫情報告':
         covidBot = covid19()
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=covidBot.getDailyInfo()))

@@ -124,7 +124,10 @@ class Solitaire:
             return '秒'
         if temp == '七彩的微風': return '側著臉輕輕吹拂'
         if temp == '當天是空的': return '地是乾的'
-
+        if temp == '最後的疼愛是':
+            randNum = rd.randint(0,100)
+            if randNum > 50: return '腿張開'
+            else: return '手放開'
         ## 我難過
         if temp == '我難過的是': return '放棄你'
         if temp == '放棄愛': return '放棄的夢被打碎'
