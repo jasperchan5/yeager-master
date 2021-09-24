@@ -20,13 +20,13 @@ app = Flask(__name__)
 
 class CustomTypeSendMessage(SendMessage):
 
-    def __init__(self, text=None, emojis=None, original_content_url=None, preview_image_url=None, quick_reply=None, **kwargs):
-        if original_content_url != None:
+    def __init__(self, text=None, quick_reply=None, **kwargs):
+        if text == 'https://imgur.com/2CWEKvS.png':
             super(CustomTypeSendMessage, self).__init__(quick_reply=quick_reply, **kwargs)
             self.type = 'image'
-            self.original_content_url = original_content_url
-            self.preview_image_url = preview_image_url
-        elif text != None:
+            self.original_content_url = text
+            self.preview_image_url = text
+        else:
             super(CustomTypeSendMessage, self).__init__(quick_reply=quick_reply, **kwargs)
             self.type = 'text'
             self.text = text
@@ -99,12 +99,17 @@ def handle_message(event):
         covidBot = covid19()
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=covidBot.getDailyInfo()))
     elif message == '星爆':
+
         line_bot_api.reply_message(event.reply_token, CustomTypeSendMessage(
                                                             original_content_url = 'https://imgur.com/2CWEKvS.png',
                                                             preview_image_url = 'https://imgur.com/2CWEKvS.png'))
     else:
         soliModel = Solitaire(message,solitaireList)
-        line_bot_api.reply_message(event.reply_token, CustomTypeSendMessage(text=soliModel.processer()))
+        if solitaireList[len(solitaireList) - 1] == '秒':
+            tempList = ['秒','https://imgur.com/2CWEKvS.png','https://imgur.com/2CWEKvS.png']
+            line_bot_api.reply_message(event.reply_token, CustomTypeSendMessage(text=tempList))
+        else:
+            line_bot_api.reply_message(event.reply_token, CustomTypeSendMessage(text=soliModel.processer()))
 
 import os
 if __name__ == "__main__":

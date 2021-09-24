@@ -40,6 +40,7 @@ class Solitaire:
         if temp == '最':
             list += "最"
             if randomNum >=30: 
+                list.clear()
                 return '愛'
             else: 
                 list.clear()
@@ -118,7 +119,8 @@ class Solitaire:
             list += '撐'
             return '撐'
         if temp == '十': 
-            list.clear()
+            list += '十'
+            list += '秒'
             return '秒'
         if temp == '七彩的微風': return '側著臉輕輕吹拂'
         if temp == '當天是空的': return '地是乾的'
