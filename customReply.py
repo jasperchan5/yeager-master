@@ -20,7 +20,6 @@ from abc import ABCMeta
 
 from future.utils import with_metaclass
 
-from .emojis import Emojis
 from .actions import get_action
 from .base import Base
 
@@ -55,14 +54,4 @@ class CustomTypeSendMessage(SendMessage):
             super(CustomTypeSendMessage, self).__init__(quick_reply=quick_reply, **kwargs)
             self.type = 'text'
             self.text = text
-            if emojis:
-                new_emojis = []
-                for emoji in emojis:
-                    emoji_object = self.get_or_new_from_json_dict(
-                        emoji, Emojis
-                    )
-                    if emoji_object:
-                        new_emojis.append(emoji_object)
-                self.emojis = new_emojis
-            else:
-                self.emojis = emojis
+            self.emojis = emojis

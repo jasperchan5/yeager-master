@@ -3,3 +3,7 @@ flask
 requests
 bs4
 pyquery
+abc
+future.utils
+linebot.models.actions
+linebot.models.base
