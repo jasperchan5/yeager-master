@@ -83,11 +83,6 @@ def handle_message(event):
     elif message == '疫情報告':
         covidBot = covid19()
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=covidBot.getDailyInfo()))
-    elif message == '星爆':
-
-        line_bot_api.reply_message(event.reply_token, ImageSendMessage(
-                                                            original_content_url = 'https://imgur.com/2CWEKvS.png',
-                                                            preview_image_url = 'https://imgur.com/2CWEKvS.png'))
     elif message == '接龍進度':
         if len(solitaireList) == 0:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text="無接龍進行中"))
@@ -104,13 +99,13 @@ def handle_message(event):
         if len(solitaireList) != 0 and solitaireList[len(solitaireList) - 1] == '秒':
             solitaireList.clear()
             replyArr = []
-            replyArr.append(textSendMessage(text="秒"))
+            replyArr.append(TextSendMessage(text="秒"))
             replyArr.append(ImageSendMessage(
                                             original_content_url = 'https://imgur.com/2CWEKvS.png',
                                             preview_image_url = 'https://imgur.com/2CWEKvS.png'))
             line_bot_api.reply_message(event.reply_token, replyArr)
         elif len(solitaireList) >= 0:
-            line_bot_api.reply_message(event.reply_token, textSendMessage(text=answer))
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=answer))
 
 import os
 if __name__ == "__main__":
