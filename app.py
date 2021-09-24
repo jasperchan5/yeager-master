@@ -105,11 +105,12 @@ def handle_message(event):
     else:
         soliModel = Solitaire(message,solitaireList)
         answer = soliModel.processer()
-        # if len(solitaireList) != 0 and solitaireList[len(solitaireList) - 1] == '秒':
-        #     tempList = ['秒','https://imgur.com/2CWEKvS.png','https://imgur.com/2CWEKvS.png']
-        #     line_bot_api.reply_message(event.reply_token, CustomTypeSendMessage(text=tempList))
-        # elif len(solitaireList) >= 0:
-        line_bot_api.reply_message(event.reply_token, CustomTypeSendMessage(text=answer))
+        if len(solitaireList) != 0 and solitaireList[len(solitaireList) - 1] == '秒':
+            solitaireList.clear()
+            tempList = ['秒','https://imgur.com/2CWEKvS.png','https://imgur.com/2CWEKvS.png']
+            line_bot_api.reply_message(event.reply_token, CustomTypeSendMessage(text=tempList))
+        elif len(solitaireList) >= 0:
+            line_bot_api.reply_message(event.reply_token, CustomTypeSendMessage(text=answer))
 
 import os
 if __name__ == "__main__":
