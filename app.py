@@ -12,7 +12,7 @@ import random as rd
 
 from solitaire import Solitaire
 from crawler import nHentaiSearcher, pixivSearcher, tagSearcher, covid19
-from customReply import CustomTypeSendMessage
+# from customReply import CustomTypeSendMessage
 
 solitaireList = []
 
@@ -87,9 +87,9 @@ def handle_message(event):
     else:
         soliModel = Solitaire(message,solitaireList)
         if solitaireList == ['野','格','炸','彈','我','的','最','愛','野','格','炸','彈','超','爽','口','感'] :
-            line_bot_api.reply_message(event.reply_token, CustomTypeSendMessage(text=soliModel.processer()))
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=soliModel.processer()))
         else:
-            line_bot_api.reply_message(event.reply_token, CustomTypeSendMessage(text=soliModel.processer()))
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=soliModel.processer()))
 
 import os
 if __name__ == "__main__":
