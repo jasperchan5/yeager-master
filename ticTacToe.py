@@ -113,12 +113,12 @@ class TicTacToe:
                             return True
         return False
 
-a = TicTacToe("O",nowCourt="",started=False)
-print(playerInfo,botInfo)
-while(a.endGame() == False):
-    b = input()
-    b = b.split(" ")
-    a.displayPlayer(b[0],b[1])
-    if a.endGame() == True: break
-    a.displayBot()
-    if a.endGame() == True: break
+# a = TicTacToe("O",nowCourt="",started=False)
+# print(playerInfo,botInfo)
+# while(a.endGame() == False):
+#     b = input()
+#     b = b.split(" ")
+#     a.displayPlayer(b[0],b[1])
+#     if a.endGame() == True: break
+#     a.displayBot()
+#     if a.endGame() == True: break
