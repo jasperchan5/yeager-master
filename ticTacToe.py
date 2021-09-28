@@ -26,8 +26,8 @@ class TicTacToe:
                     self.bot = [True,"O"]
 
             global playerInfo, botInfo
-            playerInfo = self.player
-            botInfo = self.bot
+            playerInfo += self.player[1]
+            botInfo += self.bot[1]
 
         else:
             # Load records
