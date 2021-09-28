@@ -153,7 +153,7 @@ def handle_message(event):
                     TicTacToe(message,TicTacToeStarted)
                     TicTacToeStarted = True
                     temp = "玩家為："
-                    temp += playerInfo[1]
+                    temp += playerInfo
                     temp += "\n設定完畢"
                     line_bot_api.reply_message(event.reply_token, TextSendMessage(text=temp))
                     
