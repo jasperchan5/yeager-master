@@ -113,8 +113,14 @@ class TicTacToe:
                             return True
         return False
 
-a = TicTacToe("O",started=False)
-print(playerInfo)
+    def reset(self):
+        global playerInfo, botInfo, nowCourt
+        playerInfo = ""
+        botInfo = ""
+        nowCourt = ""
+
+# a = TicTacToe("O",started=False)
+# print(playerInfo)
 # print(playerInfo,botInfo)
 # while(a.endGame() == False):
 #     b = input()

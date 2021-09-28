@@ -123,6 +123,7 @@ def handle_message(event):
         if message == "別玩了":
             TicTacToeStarted = False
             TicTacToeMode = False
+            TicTacToe.reset()
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text="雖然是遊戲，但可不是鬧著玩的！"))
         else:
             if TicTacToeStarted  == True:
