@@ -1,7 +1,7 @@
 import numpy as np
 import random as rd
-playerInfo = []
-botInfo = []
+playerInfo = ""
+botInfo = ""
 nowCourt = ""
 class TicTacToe:
     def __init__(self,select,started):
