@@ -1,10 +1,8 @@
 import numpy as np
 import random as rd
-playerInfo = ""
-botInfo = ""
-nowCourt = ""
+
 class TicTacToe:
-    def __init__(self,select,started):
+    def __init__(self,select,started,nowCourt):
 
         if started == False:
             # Initiate the game
@@ -25,16 +23,19 @@ class TicTacToe:
                     self.player = [True,"X"]
                     self.bot = [True,"O"]
 
-            global playerInfo, botInfo
-            playerInfo += self.player[1]
-            botInfo += self.bot[1]
-
         else:
             # Load records
             for i in range(0,3):
                 for j in range(0,3):
                     self.court = nowCourt[i][j]
             
+    def loadInfo(self,infos,started):
+        if started == False:
+            infos += self.player[1]
+            infos += self.bot[1]
+        else:
+            self.player = ["True",infos[0]]
+            self.bot = ["True",infos[1]]
 
     def recordCourt(self): # 回傳string格式的棋盤
         tempStr = ""
@@ -42,8 +43,7 @@ class TicTacToe:
             for j in range(0,3):
                 tempStr += self.court[i][j]
             tempStr += "\n"
-        nowCourt = tempStr
-        return nowCourt
+        return tempStr
 
     def displayPlayer(self,coordX,coordY):
         if self.court[int(coordX)][int(coordY)]  == "_": 
