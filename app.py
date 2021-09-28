@@ -14,7 +14,7 @@ import random as rd
 
 from solitaire import Solitaire
 from crawler import nHentaiSearcher, imageSearcher, tagSearcher, covid19
-from ticTacToe import TicTacToe
+from ticTacToe import TicTacToe, playerInfo, botInfo
 
 solitaireList = []
 TicTacToeMode = False
@@ -51,11 +51,11 @@ def handle_message(event):
     message = event.message.text
     if TicTacToeMode == False:
         if message == '指令':
-            orders = '很高興認識你，我是接龍大師。\n\n【 功能列表 】\n\n─〔接龍〕─\n野格炸彈\n星爆\n田勝傑\n南一中蜜蜂\n我難過\n\n輸入「接龍進度」以查看進行中的接龍\n\n─〔井字遊戲〕─\n請輸入「井字遊戲」切換\n請輸入「別玩了」終止遊戲\n\n─〔推本子〕─\n隨機推本：請輸入「神之語言」\n本號查詢：請輸入「神之語言 <任意數字>」\n標籤查詢：請輸入「找本子 <tag1> <tag2>...」\n\n─〔推圖〕─\nR-18：請輸入「可以色色」（開發中）\n正常向：請輸入「不可以色色」（開發中）\n\n─〔每日疫情資訊〕─\n請輸入「疫情報告」\n\n更多功能敬請期待...'
+            orders = '很高興認識你，我是接龍大師。\n\n【 功能列表 】\n\n─〔接龍〕─\n野格炸彈\n星爆\n田勝傑\n南一中蜜蜂\n我難過\n\n輸入「接龍進度」以查看進行中的接龍\n\n─〔井字遊戲〕─\n請輸入「井字遊戲」切換\n\n─〔推本子〕─\n隨機推本：請輸入「神之語言」\n本號查詢：請輸入「神之語言 <任意數字>」\n標籤查詢：請輸入「找本子 <tag1> <tag2>...」\n\n─〔推圖〕─\nR-18：請輸入「可以色色」（開發中）\n正常向：請輸入「不可以色色」（開發中）\n\n─〔每日疫情資訊〕─\n請輸入「疫情報告」\n\n更多功能敬請期待...'
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text=orders))
         elif message == '井字遊戲':
             TicTacToeMode = True
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Switch！！！\n\n【井字遊戲模式】\n\n─〔規則說明〕─\n首先輸入英文大寫O或X來選擇自己的符號\n接著就輸入<座標一 座標二>來決定劃記地點\n棋盤為5x5，向下為X座標，向右為Y座標"))
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Switch！！！\n\n【井字遊戲模式】\n\n─〔規則說明〕─\n首先輸入英文大寫O或X來選擇自己的符號\n接著就輸入<座標一 座標二>來決定劃記地點\n棋盤為3x3，向下為X座標，向右為Y座標\n輸入「別玩了」終止遊戲"))
         elif message == '神之語言':
             randNum = rd.randint(0,400000)
             hentaiSearch = nHentaiSearcher(str(randNum))
@@ -123,8 +123,29 @@ def handle_message(event):
             TicTacToeMode = False
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text="雖然是遊戲，但可不是鬧著玩的！"))
         else:
-            if message == "O" or message == "X":
+            global TicTacToeStarted
+            if TicTacToeStarted  == True:
+                returnCourt = ""
                 message = message.split(" ")
+                game = TicTacToe(playerInfo[0],TicTacToeStarted)
+                game.displayPlayer(message[0],message[1])
+                returnCourt = game.recordCourt()
+                if game.endGame() == True:
+                    returnCourt += "\n\n遊戲結束，玩家勝。"
+                    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=returnCourt))
+                game.displayBot()
+                returnCourt = game.recordCourt()
+                if game.endGame() == True:
+                    returnCourt += "\n\n遊戲結束，機器人勝。"
+                    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=returnCourt))
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=returnCourt))
+            else:   
+                if message == "O" or message == "X":
+                    TicTacToe(message,TicTacToeStarted)
+                    TicTacToeStarted = True
+                    line_bot_api.reply_message(event.reply_token, TextSendMessage(text="設定完畢"))
+                    
+
                 
             
 import os

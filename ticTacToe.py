@@ -36,7 +36,7 @@ class TicTacToe:
                     self.court = nowCourt[i][j]
             
 
-    def recordCourt(self):
+    def recordCourt(self): # 回傳string格式的棋盤
         tempStr = ""
         for i in range(0,3):
             for j in range(0,3):
