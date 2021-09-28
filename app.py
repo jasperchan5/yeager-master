@@ -123,12 +123,12 @@ def handle_message(event):
             TicTacToeMode = False
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text="雖然是遊戲，但可不是鬧著玩的！"))
         else:
-            global TicTacToeStarted
+            global TicTacToeStarted, playerInfo
             if TicTacToeStarted  == True:
                 returnCourt = ""
                 message = message.split(" ")
                 try:
-                    game = TicTacToe(playerInfo[0],TicTacToeStarted)
+                    game = TicTacToe(playerInfo,TicTacToeStarted)
                 except:
                     line_bot_api.reply_message(event.reply_token, TextSendMessage(text="遊戲初始化失敗"))
                 try:    

@@ -113,7 +113,8 @@ class TicTacToe:
                             return True
         return False
 
-# a = TicTacToe("O",nowCourt="",started=False)
+a = TicTacToe("O",started=False)
+print(playerInfo)
 # print(playerInfo,botInfo)
 # while(a.endGame() == False):
 #     b = input()
