@@ -119,7 +119,7 @@ def handle_message(event):
                     cnt += 1
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text=tempStr))
         
-        else:
+        else: 
             soliModel = Solitaire(message,solitaireList)
             answer = soliModel.processer()
             
@@ -134,9 +134,10 @@ def handle_message(event):
             
             elif len(solitaireList) >= 0:
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text=answer))
-    
+
+    ### 井字遊戲 ###
     else:
-        global TicTacToeStarted, playerInfo, botInfo
+        global TicTacToeStarted, playerInfo, botInfo, infos, nowCourt
         
         if message == "別玩了":
             TicTacToeStarted = False
@@ -145,7 +146,7 @@ def handle_message(event):
         
         else:
             if TicTacToeStarted  == True:
-                global nowCourt
+                infos = []
                 returnCourt = "" # string格式的棋盤
                 message = message.split(" ")
                 try:
@@ -182,6 +183,7 @@ def handle_message(event):
             
             else:   
                 if message == "O" or message == "X":
+                    infos = []
                     game = TicTacToe(message,TicTacToeStarted,nowCourt)
                     game.loadInfo(infos,TicTacToeStarted)
                     playerInfo = infos[0]
