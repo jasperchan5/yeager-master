@@ -146,7 +146,6 @@ def handle_message(event):
         
         else:
             if TicTacToeStarted  == True:
-                infos = []
                 returnCourt = "" # string格式的棋盤
                 message = message.split(" ")
                 try:
