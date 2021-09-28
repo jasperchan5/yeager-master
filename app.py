@@ -1,7 +1,6 @@
 # coding:utf-8
-from bs4 import BeautifulSoup
 from flask import Flask, request, abort
-import requests
+
 from linebot import (
     LineBotApi, WebhookHandler
 )
@@ -152,6 +151,7 @@ def handle_message(event):
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text=returnCourt))
             else:   
                 if message == "O" or message == "X":
+                    global playerInfo
                     TicTacToe(message,TicTacToeStarted)
                     TicTacToeStarted = True
                     temp = "玩家為："
