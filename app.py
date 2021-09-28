@@ -127,13 +127,22 @@ def handle_message(event):
             if TicTacToeStarted  == True:
                 returnCourt = ""
                 message = message.split(" ")
-                game = TicTacToe(playerInfo[0],TicTacToeStarted)
-                game.displayPlayer(message[0],message[1])
+                try:
+                    game = TicTacToe(playerInfo[0],TicTacToeStarted)
+                except:
+                    line_bot_api.reply_message(event.reply_token, TextSendMessage(text="遊戲初始化失敗"))
+                try:    
+                    game.displayPlayer(message[0],message[1])
+                except:
+                    line_bot_api.reply_message(event.reply_token, TextSendMessage(text="玩家放置失敗"))
                 returnCourt = game.recordCourt()
                 if game.endGame() == True:
                     returnCourt += "\n\n遊戲結束，玩家勝。"
                     line_bot_api.reply_message(event.reply_token, TextSendMessage(text=returnCourt))
-                game.displayBot()
+                try:
+                    game.displayBot()
+                except:
+                    line_bot_api.reply_message(event.reply_token, TextSendMessage(text="機器人放置失敗"))
                 returnCourt = game.recordCourt()
                 if game.endGame() == True:
                     returnCourt += "\n\n遊戲結束，機器人勝。"
@@ -143,7 +152,10 @@ def handle_message(event):
                 if message == "O" or message == "X":
                     TicTacToe(message,TicTacToeStarted)
                     TicTacToeStarted = True
-                    line_bot_api.reply_message(event.reply_token, TextSendMessage(text="設定完畢"))
+                    temp = "玩家為："
+                    temp += playerInfo[1]
+                    temp += "\n設定完畢"
+                    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=temp))
                     
 
                 
