@@ -119,11 +119,12 @@ def handle_message(event):
             elif len(solitaireList) >= 0:
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text=answer))
     else:
+        global TicTacToeStarted, playerInfo
         if message == "別玩了":
+            TicTacToeStarted = False
             TicTacToeMode = False
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text="雖然是遊戲，但可不是鬧著玩的！"))
         else:
-            global TicTacToeStarted, playerInfo
             if TicTacToeStarted  == True:
                 returnCourt = ""
                 message = message.split(" ")
