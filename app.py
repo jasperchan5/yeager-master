@@ -13,7 +13,7 @@ import random as rd
 
 from solitaire import Solitaire
 from crawler import nHentaiSearcher, imageSearcher, tagSearcher, covid19
-from ticTacToe import TicTacToe, playerInfo, botInfo
+from ticTacToe import TicTacToe, playerInfo
 
 solitaireList = []
 TicTacToeMode = False
@@ -122,7 +122,7 @@ def handle_message(event):
         if message == "別玩了":
             TicTacToeStarted = False
             TicTacToeMode = False
-            TicTacToe.reset()
+            playerInfo = ""
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text="雖然是遊戲，但可不是鬧著玩的！"))
         else:
             if TicTacToeStarted  == True:
@@ -151,7 +151,6 @@ def handle_message(event):
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text=returnCourt))
             else:   
                 if message == "O" or message == "X":
-                    global playerInfo
                     TicTacToe(message,TicTacToeStarted)
                     TicTacToeStarted = True
                     temp = "玩家為："
