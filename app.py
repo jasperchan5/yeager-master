@@ -155,7 +155,8 @@ def handle_message(event):
                     game = TicTacToe(playerInfo,TicTacToeStarted,nowCourt)
                     game.loadInfo(infos,TicTacToeStarted)
                 except:
-                    line_bot_api.reply_message(event.reply_token, TextSendMessage(text="遊戲初始化失敗"))
+                    temp = game.recordCourt()
+                    line_bot_api.reply_message(event.reply_token, TextSendMessage(text= temp +"遊戲初始化失敗"))
                 
                 try:    
                     game.displayPlayer(message[0],message[1])
