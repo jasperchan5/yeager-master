@@ -91,8 +91,11 @@ def handle_message(event):
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text="哭啊，找本失敗！"))
         
         elif message == '不可以色色' or message == '可以色色':
-            imgBot = imageSearcher(message)
-            imgLink = imgBot.getImage()
+            if message == '不可以色色':
+                imgBot = imageSearcher(message)
+                imgLink = imgBot.getImage()
+            else:
+                imgLink = 'https://imgur.com/mj4CCdA.png'
             try:
                 line_bot_api.reply_message(event.reply_token, ImageSendMessage(
                                                                 original_content_url = imgLink,
@@ -185,6 +188,7 @@ def handle_message(event):
                     infos = []
                     game = TicTacToe(message,TicTacToeStarted,nowCourt)
                     game.loadInfo(infos,TicTacToeStarted)
+                    nowCourt = game.recordCourt()
                     playerInfo = infos[0]
                     botInfo = infos[1]
                     TicTacToeStarted = True

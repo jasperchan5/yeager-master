@@ -72,6 +72,7 @@ class imageSearcher:
             self.target = requests.get("https://anime-pictures.net/")
         elif mode == "可以色色":
             self.target = requests.get("https://www.pixiv.net/ranking.php?mode=daily_r18")
+            
     def getImage(self):
         # 首頁找圖
         page = BeautifulSoup(self.target.text,"html.parser")
