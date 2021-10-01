@@ -24,10 +24,21 @@ class TicTacToe:
                     self.bot = [True,"O"]
 
         else:
-            # Load records
+            # Re-Initiate the game
+            self.court = np.empty([3,3], dtype = object)
             for i in range(0,3):
                 for j in range(0,3):
-                    self.court = nowCourt[i][j]
+                    self.court[i][j] = "_"
+            self.originalCourt = self.court
+            # Load records
+            print(len(nowCourt))
+            nowCourtCnt = 0
+            for i in range(0,3):
+                for j in range(0,3):
+                    self.court[i][j] = nowCourt[nowCourtCnt]
+                    nowCourtCnt += 1
+                    if i < 2 and nowCourt[nowCourtCnt] == '\n':
+                        nowCourtCnt += 1
             
     def loadInfo(self,infos,started):
         if started == False:
@@ -42,7 +53,8 @@ class TicTacToe:
         for i in range(0,3):
             for j in range(0,3):
                 tempStr += self.court[i][j]
-            tempStr += "\n"
+            if i < 2:
+                tempStr += "\n"
         return tempStr
 
     def displayPlayer(self,coordX,coordY):
@@ -113,13 +125,27 @@ class TicTacToe:
                             return True
         return False
 
-# a = TicTacToe("O",started=False)
-# print(playerInfo)
-# print(playerInfo,botInfo)
-# while(a.endGame() == False):
-#     b = input()
-#     b = b.split(" ")
-#     a.displayPlayer(b[0],b[1])
-#     if a.endGame() == True: break
-#     a.displayBot()
-#     if a.endGame() == True: break
+# nowCourt = ""
+# infos = []
+# a = TicTacToe("O",False,"")
+# a.loadInfo(infos,False)
+# # while(a.endGame() == False):
+# b = input()
+# b = b.split(" ")
+# a.displayPlayer(b[0],b[1])
+# # if a.endGame() == True: break
+# a.displayBot()
+# # if a.endGame() == True: break
+# temp = a.recordCourt()
+# print(temp)
+# c = TicTacToe("O",True,temp)
+# c.loadInfo(infos,True)
+# # while(a.endGame() == False):
+# d = input()
+# d = d.split(" ")
+# c.displayPlayer(d[0],d[1])
+# # if a.endGame() == True: break
+# c.displayBot()
+# # if a.endGame() == True: break
+# temp = c.recordCourt()
+# print(temp)
