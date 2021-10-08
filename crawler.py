@@ -59,10 +59,8 @@ class tagSearcher:
         randNum = rd.randint(0,len(titles) - 1)
         self.__target = requests.get("https://nhentai.net/search/?q=" + self.__tag + "&page=" + str(pageNum))
         page = BeautifulSoup(self.__target.text,"html.parser")
-        title = titles[randNum].text
         link = page.find_all('a', href=True)[23 + randNum]
         self.__tempStr += "https://nhentai.net" + link['href'] + "\n\n"
-        self.__tempStr += title
         return self.__tempStr
 
 class imageSearcher:
@@ -71,9 +69,9 @@ class imageSearcher:
         if mode == "不可以色色":
             self.target = requests.get("https://anime-pictures.net/")
         elif mode == "可以色色":
-            self.target = requests.get("https://www.pixiv.net/ranking.php?mode=daily_r18")
+            self.target = requests.get("https://hanime.tv/browse/images/")
             
-    def getImage(self):
+    def getNormalImage(self):
         # 首頁找圖
         page = BeautifulSoup(self.target.text,"html.parser")
         tempStr = ""
@@ -92,6 +90,14 @@ class imageSearcher:
         trueLink = truePage.find("a")['href']
         tempStr += "https://anime-pictures.net" + trueLink
         return tempStr  
+    
+    def getHentaiImage(self):
+        page = BeautifulSoup(self.target.text,"html.parser")
+        tempStr = ""
+        image = page.findAll("a")
+        randNum = rd.randint(0,len(image))
+        tempStr += image[20]['href']
+        print(tempStr)
 
 class covid19:
     def __init__(self) -> None:
@@ -119,5 +125,7 @@ class covid19:
         tempStr += '死亡： ' + newDeathStr
         return tempStr
 
-a = imageSearcher("不可以色色")
-print(a.getImage())
+# a = imageSearcher("不可以色色")
+# a.getHentaiImage()
+b = tagSearcher("league of legends")
+print(b.searchDoujin())

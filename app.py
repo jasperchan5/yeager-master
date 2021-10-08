@@ -93,9 +93,10 @@ def handle_message(event):
         elif message == '不可以色色' or message == '可以色色':
             if message == '不可以色色':
                 imgBot = imageSearcher(message)
-                imgLink = imgBot.getImage()
+                imgLink = imgBot.getNormalImage()
             else:
-                imgLink = 'https://imgur.com/mj4CCdA.png'
+                imgBot = imageSearcher(message)
+                imgLink = imgBot.getHentaiImage()
             try:
                 line_bot_api.reply_message(event.reply_token, ImageSendMessage(
                                                                 original_content_url = imgLink,
