@@ -132,6 +132,10 @@ class Solitaire:
         if temp == '我難過的是': return '放棄你'
         if temp == '放棄愛': return '放棄的夢被打碎'
         if temp == '忍住悲哀': return '我以為 是成全'
+        ## 史丹利
+        if temp == '太無情了史丹利': return '你真的太無情了'
+        if temp == '吸奶': return '無情單殺'
+        if temp == '無情雙殺': return '哭啊'
         ### 周杰倫區 ###
 
         ## Jay ##
