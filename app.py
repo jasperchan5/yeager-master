@@ -94,7 +94,7 @@ def handle_message(event):
         elif '不可以色色' in message or message == '可以色色':
             if '不可以色色' in message:
                 message = message.split(" ")
-                imgBot = imageSearcher(message[0],message[1])
+                imgBot = imageSearcher(message[0],int(message[1]))
                 imgLink = imgBot.getNormalImage()
             else:
                 imgBot = imageSearcher(message)
