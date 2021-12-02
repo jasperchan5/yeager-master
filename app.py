@@ -97,7 +97,9 @@ def handle_message(event):
                 imgLink = imgBot.getNormalImage()
             elif message == '不可以色色加強版':
                 imgBot = imageSearcher(message)
-                imgLink = [imgBot.getNormalImage() for i in range(5)]
+                imgLink = []
+                for i in range(5):
+                    imgLink.append(imgBot.getNormalImage())
             else:
                 imgBot = imageSearcher(message)
                 imgLink = imgBot.getHentaiImage()
