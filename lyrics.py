@@ -31,6 +31,7 @@ class SolitaireDB:
                     # print("found ",self.__char," in collection ",allCollection[i])
                     self.clearSequence("nowSequence")
                     self.setSequence("nowSequence",allCollection[i])
+                    break
 
     def querySequence(self):
         self.setNow()
