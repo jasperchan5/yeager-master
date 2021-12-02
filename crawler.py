@@ -129,5 +129,8 @@ class covid19:
         tempStr += '死亡： ' + newDeathStr
         return tempStr
 
+# a = "1 2"
+# a = a.split(" ")
+# print(a)
 # a = imageSearcher("不可以色色",int(input().split(" ")[1]))
 # print(a.getNormalImage())
