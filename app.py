@@ -141,11 +141,11 @@ def handle_message(event):
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text=tempStr))
         
         else: 
-            try:
-                soliModel = SolitaireDB(message)
-                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=soliModel.querySequence()))
-            except:
-                line_bot_api.reply_message(event.reply_token, TextSendMessage(text="接龍失敗"))
+            # try:
+            soliModel = SolitaireDB(message)
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=soliModel.querySequence()))
+            # except:
+            #     line_bot_api.reply_message(event.reply_token, TextSendMessage(text="接龍失敗"))
             # soliModel = Solitaire(message,solitaireList)
             # answer = soliModel.processer()
             
