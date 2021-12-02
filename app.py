@@ -14,6 +14,7 @@ import random as rd
 from solitaire import Solitaire
 from crawler import nHentaiSearcher, imageSearcher, tagSearcher, covid19
 from ticTacToe import TicTacToe
+from lyrics import SolitaireDB
 
 solitaireList = []
 TicTacToeMode = False
@@ -124,20 +125,23 @@ def handle_message(event):
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text=tempStr))
         
         else: 
-            soliModel = Solitaire(message,solitaireList)
-            answer = soliModel.processer()
+            soliModel = SolitaireDB(message)
+            answer = soliModel.querySequence()
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=answer))
+            # soliModel = Solitaire(message,solitaireList)
+            # answer = soliModel.processer()
             
-            if len(solitaireList) != 0 and solitaireList[len(solitaireList) - 1] == '秒':
-                solitaireList.clear()
-                replyArr = []
-                replyArr.append(TextSendMessage(text="秒"))
-                replyArr.append(ImageSendMessage(
-                                                original_content_url = 'https://imgur.com/2CWEKvS.png',
-                                                preview_image_url = 'https://imgur.com/2CWEKvS.png'))
-                line_bot_api.reply_message(event.reply_token, replyArr)
+            # if len(solitaireList) != 0 and solitaireList[len(solitaireList) - 1] == '秒':
+            #     solitaireList.clear()
+            #     replyArr = []
+            #     replyArr.append(TextSendMessage(text="秒"))
+            #     replyArr.append(ImageSendMessage(
+            #                                     original_content_url = 'https://imgur.com/2CWEKvS.png',
+            #                                     preview_image_url = 'https://imgur.com/2CWEKvS.png'))
+            #     line_bot_api.reply_message(event.reply_token, replyArr)
             
-            elif len(solitaireList) >= 0:
-                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=answer))
+            # elif len(solitaireList) >= 0:
+            #     line_bot_api.reply_message(event.reply_token, TextSendMessage(text=answer))
 
     ### 井字遊戲 ###
     else:
