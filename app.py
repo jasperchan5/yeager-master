@@ -99,7 +99,7 @@ def handle_message(event):
                 else:
                     message = message.split(" ")
                     inMessage = message[0]
-                    crawlNum = message[1]
+                    crawlNum = int(message[1])
                 imgBot = imageSearcher(inMessage,crawlNum)
                 imgLink = imgBot.getNormalImage()
             else:
