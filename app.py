@@ -125,9 +125,12 @@ def handle_message(event):
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text=tempStr))
         
         else: 
-            soliModel = SolitaireDB(message)
-            answer = soliModel.querySequence()
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=answer))
+            try:
+                soliModel = SolitaireDB(message)
+                answer = soliModel.querySequence()
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=answer))
+            except:
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text="接龍失敗"))
             # soliModel = Solitaire(message,solitaireList)
             # answer = soliModel.processer()
             
