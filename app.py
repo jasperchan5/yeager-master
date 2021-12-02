@@ -127,7 +127,7 @@ def handle_message(event):
         else: 
             try:
                 soliModel = SolitaireDB(message)
-                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=soliModel.querySequence()))
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text="aaa"))
             except:
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text="接龍失敗"))
             # soliModel = Solitaire(message,solitaireList)

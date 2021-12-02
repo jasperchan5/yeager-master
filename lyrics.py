@@ -50,5 +50,5 @@ class SolitaireDB:
         print(soli_db.list_collection_names())
 
 
-# soliModel = SolitaireDB(input())
+# soliModel = SolitaireDB("野")
 # print(soliModel.querySequence())
