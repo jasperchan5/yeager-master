@@ -4,4 +4,4 @@ requests
 bs4
 pyquery
 numpy
-pymongo
+pymongo==4.0
