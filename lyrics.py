@@ -38,7 +38,7 @@ class SolitaireDB:
         currentSequence = soli_db['nowSequence'].find_one({"number":0})['sequence']
         collection = soli_db[currentSequence]
         matchChar = collection.find_one({"content": self.__char})
-        return str(collection.find({})[matchChar["number"]+1]["content"])
+        return collection.find({})[matchChar["number"]+1]["content"]
 
     def clearSequence(self,category):
         soli_db = self.__client['Solitaire']
