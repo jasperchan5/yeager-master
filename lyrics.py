@@ -1,5 +1,4 @@
 import pymongo
-from pymongo import collection
 
 class SolitaireDB:
     def __init__(self,input):
@@ -34,11 +33,12 @@ class SolitaireDB:
                     self.setSequence("nowSequence",allCollection[i])
 
     def querySequence(self):
+        self.setNow()
         soli_db = self.__client['Solitaire']
         currentSequence = soli_db['nowSequence'].find_one({"number":0})['sequence']
         collection = soli_db[currentSequence]
         matchChar = collection.find_one({"content": self.__char})
-        return collection.find({})[matchChar["number"]+1]["content"]
+        return str(collection.find({})[matchChar["number"]+1]["content"])
 
     def clearSequence(self,category):
         soli_db = self.__client['Solitaire']
@@ -49,9 +49,6 @@ class SolitaireDB:
         soli_db = self.__client['Solitaire']
         print(soli_db.list_collection_names())
 
-# for i in range(8):
-#     soliModel = SolitaireDB(input())
-#     # soliModel.clearSequence('yeager')
-#     # soliModel.setSequence('yeager','野格炸彈我的最愛野格炸彈超爽口感')
-#     soliModel.setNow()
-#     print(soliModel.querySequence())
+
+# soliModel = SolitaireDB(input())
+# print(soliModel.querySequence())
