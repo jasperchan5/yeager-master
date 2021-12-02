@@ -64,32 +64,36 @@ class tagSearcher:
         return self.__tempStr
 
 class imageSearcher:
-    def __init__(self,mode):
-        self.crawlNum = 0
+    def __init__(self,mode,crawlNum):
+        self.crawlNum = crawlNum
+        self.mode = mode
         if mode == "不可以色色":
             self.target = requests.get("https://anime-pictures.net/")
         elif mode == "可以色色":
             self.target = requests.get("https://hanime.tv/browse/images/")
-            
+
     def getNormalImage(self):
         # 首頁找圖
         page = BeautifulSoup(self.target.text,"html.parser")
-        tempStr = ""
         title = page.find_all("div","post_content index_page")
-        titleNum = rd.randint(1,2)
-        images = title[titleNum].find_all("span","img_block2")
-        rand = rd.randint(0,11)
-        img = images[rand]
-        link = img.find("a")['href']
-        link = link.replace("en","zh_CN")
+        imgArr = []
+        for i in range(self.crawlNum):
+            tempStr = ""
+            titleNum = rd.randint(1,2)
+            images = title[titleNum].find_all("span","img_block2")
+            rand = rd.randint(0,11)
+            img = images[rand]
+            link = img.find("a")['href']
+            link = link.replace("en","zh_CN")
 
-        # 進入該圖
-        self.target = requests.get("https://anime-pictures.net" + link)
-        page = BeautifulSoup(self.target.text,"html.parser")
-        truePage = page.find("div",{"id":"big_preview_cont"})
-        trueLink = truePage.find("a")['href']
-        tempStr += "https://anime-pictures.net" + trueLink
-        return tempStr  
+            # 進入該圖
+            self.target = requests.get("https://anime-pictures.net" + link)
+            page = BeautifulSoup(self.target.text,"html.parser")
+            truePage = page.find("div",{"id":"big_preview_cont"})
+            trueLink = truePage.find("a")['href']
+            tempStr += "https://anime-pictures.net" + trueLink
+            imgArr.append(tempStr)   
+        return imgArr
     
     def getHentaiImage(self):
         page = BeautifulSoup(self.target.text,"html.parser")
@@ -125,7 +129,5 @@ class covid19:
         tempStr += '死亡： ' + newDeathStr
         return tempStr
 
-# a = imageSearcher("不可以色色")
-# a.getHentaiImage()
-b = tagSearcher("league of legends")
-print(b.searchDoujin())
+# a = imageSearcher("不可以色色",int(input().split(" ")[1]))
+# print(a.getNormalImage())

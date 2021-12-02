@@ -91,20 +91,16 @@ def handle_message(event):
             except:
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text="哭啊，找本失敗！"))
         
-        elif message == '不可以色色' or message == '不可以色色加強版' or message == '可以色色':
-            if message == '不可以色色':
-                imgBot = imageSearcher(message)
+        elif '不可以色色' in message or message == '可以色色':
+            if '不可以色色' in message:
+                crawlNum = message.split(" ")[1]
+                imgBot = imageSearcher(message,crawlNum)
                 imgLink = imgBot.getNormalImage()
-            elif message == '不可以色色加強版':
-                imgBot = imageSearcher(message)
-                imgLink = []
-                for i in range(5):
-                    imgLink.append(imgBot.getNormalImage())
             else:
                 imgBot = imageSearcher(message)
                 imgLink = imgBot.getHentaiImage()
             try:
-                if message != '不可以色色加強版':
+                if len(imgLink) == 1:
                     line_bot_api.reply_message(event.reply_token, ImageSendMessage(
                                                                     original_content_url = imgLink,
                                                                     preview_image_url = imgLink))
