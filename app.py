@@ -93,8 +93,14 @@ def handle_message(event):
         
         elif '不可以色色' in message or message == '可以色色':
             if '不可以色色' in message:
-                message = message.split(" ")
-                imgBot = imageSearcher(message[0],int(message[1]))
+                if message == '不可以色色':
+                    inMessage = message
+                    crawlNum = 1
+                else:
+                    message = message.split(" ")
+                    inMessage = message[0]
+                    crawlNum = message[1]
+                imgBot = imageSearcher(inMessage,crawlNum)
                 imgLink = imgBot.getNormalImage()
             else:
                 imgBot = imageSearcher(message)
@@ -102,8 +108,8 @@ def handle_message(event):
             try:
                 if len(imgLink) == 1:
                     line_bot_api.reply_message(event.reply_token, ImageSendMessage(
-                                                                    original_content_url = imgLink,
-                                                                    preview_image_url = imgLink))
+                                                                    original_content_url = imgLink[0],
+                                                                    preview_image_url = imgLink[0]))
                 else:
                     imgArr = []
                     for i in imgLink:

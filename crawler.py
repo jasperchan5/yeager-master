@@ -65,7 +65,7 @@ class tagSearcher:
 
 class imageSearcher:
     def __init__(self,mode,crawlNum):
-        self.crawlNum = crawlNum
+        self.crawlNum = crawlNum if crawlNum <= 5 else 5
         self.mode = mode
         if mode == "不可以色色":
             self.target = requests.get("https://anime-pictures.net/")
