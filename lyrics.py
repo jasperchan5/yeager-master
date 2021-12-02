@@ -49,9 +49,9 @@ class SolitaireDB:
         soli_db = self.__client['Solitaire']
         print(soli_db.list_collection_names())
 
-for i in range(8):
-    soliModel = SolitaireDB(input())
-    # soliModel.clearSequence('yeager')
-    # soliModel.setSequence('yeager','野格炸彈我的最愛野格炸彈超爽口感')
-    soliModel.setNow()
-    print(soliModel.querySequence())
+# for i in range(8):
+#     soliModel = SolitaireDB(input())
+#     # soliModel.clearSequence('yeager')
+#     # soliModel.setSequence('yeager','野格炸彈我的最愛野格炸彈超爽口感')
+#     soliModel.setNow()
+#     print(soliModel.querySequence())
