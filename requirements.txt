@@ -4,4 +4,4 @@ requests
 bs4
 pyquery
 numpy
-pymongo==4.0
+pymongo[tls]
