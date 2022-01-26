@@ -7,4 +7,3 @@ numpy
 pymongo
 dnspython
 selenium
-time
