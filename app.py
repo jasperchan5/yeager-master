@@ -145,25 +145,13 @@ def handle_message(event):
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text=soliModel.querySequence()))
             except:
                 soliModel = LyricDB(message)
-                if '找歌' in message:
-                    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=soliModel.findLyrics(message)))
-                else:
-                    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=soliModel.findSolitaire(message)))
-            #     line_bot_api.reply_message(event.reply_token, TextSendMessage(text="接龍失敗"))
-            # soliModel = Solitaire(message,solitaireList)
-            # answer = soliModel.processer()
-            
-            # if len(solitaireList) != 0 and solitaireList[len(solitaireList) - 1] == '秒':
-            #     solitaireList.clear()
-            #     replyArr = []
-            #     replyArr.append(TextSendMessage(text="秒"))
-            #     replyArr.append(ImageSendMessage(
-            #                                     original_content_url = 'https://imgur.com/2CWEKvS.png',
-            #                                     preview_image_url = 'https://imgur.com/2CWEKvS.png'))
-            #     line_bot_api.reply_message(event.reply_token, replyArr)
-            
-            # elif len(solitaireList) >= 0:
-            #     line_bot_api.reply_message(event.reply_token, TextSendMessage(text=answer))
+                try:
+                    if '找歌' in message:
+                        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=soliModel.findLyrics(message)))
+                    else:
+                        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=soliModel.findSolitaire(message)))
+                except:
+                    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=f"執行 {message} 失敗！"))
 
     ### 井字遊戲 ###
     else:
