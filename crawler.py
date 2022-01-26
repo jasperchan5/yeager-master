@@ -146,6 +146,6 @@ class covid19:
         return tempStr
 
 
-a = imageSearcher(5)
-a.LoginPixiv()
-print(a.getNormalImage())
+# a = imageSearcher(5)
+# a.LoginPixiv()
+# print(a.getNormalImage())

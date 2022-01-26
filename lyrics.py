@@ -124,5 +124,5 @@ class LyricDB: # 輸入: 找歌 <歌名> <歌手>
         collection = soli_db[category]
         collection.delete_many({})
 
-soliModel = LyricDB("我難過的是")
-soliModel.findSolitaire()
+# soliModel = LyricDB("我難過的是")
+# soliModel.findSolitaire()
