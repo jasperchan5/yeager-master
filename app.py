@@ -150,8 +150,8 @@ def handle_message(event):
                         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=soliModel.findLyrics(message)))
                     else:
                         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=soliModel.findSolitaire(message)))
-                except:
-                    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=f"執行 {message} 失敗！"))
+                except Exception as e:
+                    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=e))
 
     ### 井字遊戲 ###
     else:
