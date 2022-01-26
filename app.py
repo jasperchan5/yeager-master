@@ -146,7 +146,7 @@ def handle_message(event):
             except:
                 soliModel = LyricDB(message)
                 if '找歌' in message:
-                    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=soliModel.findLyrics()))
+                    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=soliModel.findLyrics(message)))
                 else:
                     line_bot_api.reply_message(event.reply_token, TextSendMessage(text=soliModel.findSolitaire(message)))
             #     line_bot_api.reply_message(event.reply_token, TextSendMessage(text="接龍失敗"))

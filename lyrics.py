@@ -62,22 +62,26 @@ class SolitaireDB: ## 輸入: <想接的單字>
 
 class LyricDB: # 輸入: 找歌 <歌名> <歌手>
     def __init__(self,input):
-        self.__song = input.split(" ")[0]
+        if "找歌" in input:
+            self.__song = input.split(" ")[1]
+            self.__singer = input.split(" ")[2]
+        else:
+            self.__song = input
         self.__allLyrics = []
-        
+        self.__client = pymongo.MongoClient("mongodb+srv://jasperchan:jscnn51011@cluster0.p9bjf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+    
     def setSequence(self):
         options = webdriver.ChromeOptions()
         options.add_experimental_option("excludeSwitches", ["enable-automation"])
         options.add_experimental_option('useAutomationExtension', False)
         options.add_experimental_option("prefs", {"profile.password_manager_enabled": False, "credentials_enable_service": False})
 
-        self.__browser=webdriver.Chrome('./chromedriver.exe',chrome_options=options)
-        self.__browser.maximize_window()
-        self.__client = pymongo.MongoClient("mongodb+srv://jasperchan:jscnn51011@cluster0.p9bjf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+        browser=webdriver.Chrome('./chromedriver.exe',chrome_options=options)
+        browser.maximize_window()
         time.sleep(3)
-        self.__browser.get("https://www.google.com/search?q=" + (input.split(" ")[0]) + "+" + (input.split(" ")[1]) + "+歌詞")
-        self.__browser.execute_script("window.scrollTo(0,document.body.scrollHeight)")
-        page = BeautifulSoup(self.__browser.page_source, "html.parser")
+        browser.get("https://www.google.com/search?q=" + self.__song + "+" + self.__singer + "+歌詞")
+        browser.execute_script("window.scrollTo(0,document.body.scrollHeight)")
+        page = BeautifulSoup(browser.page_source, "html.parser")
         lyricSection = page.find_all("div","ujudUb")
         for i in lyricSection:
             eachPara = i.find_all("span")
@@ -85,13 +89,14 @@ class LyricDB: # 輸入: 找歌 <歌名> <歌手>
                 jp = j.text.split(" ")
                 for k in jp:
                     self.__allLyrics.append(k)
-        self.__browser.close()
+        browser.close()
         
-    def findLyrics(self,input):
-        collections = self.__client.list_database_names()
+    def findLyrics(self):
+        collections = self.__client["Lyrics"].list_collection_names()
         try: 
-            if collections.index(input) != -1:
-                return "資料庫已有歌曲：" + input + "。"
+            if collections.index(self.__song) != -1:
+                print("找到！")
+                return "資料庫已有歌曲：" + self.__song + "。"
         except:
             self.setSequence()
             soli_db = self.__client["Lyrics"]
@@ -100,14 +105,18 @@ class LyricDB: # 輸入: 找歌 <歌名> <歌手>
                 "name": self.__song,
                 "lyrics": self.__allLyrics
             })
-            return "資料庫查無歌曲：" + input + "，已創建歌詞資料。"
+            print("沒找到！")
+            return "資料庫查無歌曲：" + self.__song + "，已創建歌詞資料。"
         
-    def findSolitaire(self,input):
+    def findSolitaire(self):
         collections = self.__client["Lyrics"].list_collection_names()
         for eachSong in collections:
+            print(eachSong)
             try:
-                return eachSong.lyrics[eachSong.lyrics.index(input)+1]
+                lyrics = self.__client["Lyrics"][eachSong].find_one({})
+                return lyrics["lyrics"][lyrics["lyrics"].index(self.__song)+1]
             except:
+                print("不是這首歌")
                 continue
         
     def clearSequence(self,category):
@@ -115,5 +124,5 @@ class LyricDB: # 輸入: 找歌 <歌名> <歌手>
         collection = soli_db[category]
         collection.delete_many({})
 
-# soliModel = LyricDB("我難過 5566")
-# soliModel.findLyrics("")
+soliModel = LyricDB("我難過的是")
+soliModel.findSolitaire()
