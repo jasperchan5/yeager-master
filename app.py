@@ -151,7 +151,7 @@ def handle_message(event):
                     else:
                         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=soliModel.findSolitaire()))
                 except Exception as e:
-                    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=str(e)))
+                    print("aaa")
 
     ### 井字遊戲 ###
     else:
