@@ -95,7 +95,7 @@ class LyricDB: # 輸入: 找歌 <歌名> <歌手>
         try: 
             if collections.index(self.__song) != -1:
                 print("找到！")
-                return "資料庫已有歌曲：" + self.__song + "。"
+                return f"資料庫已有歌曲：{self.__song}。"
         except:
             self.setSequence()
             soli_db = self.__client["Lyrics"]
@@ -105,7 +105,7 @@ class LyricDB: # 輸入: 找歌 <歌名> <歌手>
                 "lyrics": self.__allLyrics
             })
             print("沒找到！")
-            return "資料庫查無歌曲：" + self.__song + "，已創建歌詞資料。"
+            return f"資料庫查無歌曲：{self.__song}，已創建歌詞資料。"
         
     def findSolitaire(self):
         collections = self.__client["Lyrics"].list_collection_names()
@@ -123,5 +123,5 @@ class LyricDB: # 輸入: 找歌 <歌名> <歌手>
         collection = soli_db[category]
         collection.delete_many({})
 
-# soliModel = LyricDB("我難過的是")
-# soliModel.findSolitaire()
+# soliModel = LyricDB("找歌 步步 五月天")
+# soliModel.findLyrics()
