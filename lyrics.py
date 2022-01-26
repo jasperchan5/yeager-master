@@ -2,6 +2,7 @@ from operator import indexOf
 import pymongo
 import time
 import selenium
+import os
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
@@ -75,7 +76,7 @@ class LyricDB: # 輸入: 找歌 <歌名> <歌手>
         options.add_experimental_option('useAutomationExtension', False)
         options.add_experimental_option("prefs", {"profile.password_manager_enabled": False, "credentials_enable_service": False})
 
-        browser=webdriver.Chrome('./chromedriver.exe',chrome_options=options)
+        browser=webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"),chrome_options=options)
         browser.maximize_window()
         time.sleep(3)
         browser.get("https://www.google.com/search?q=" + self.__song + "+" + self.__singer + "+歌詞")
