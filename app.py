@@ -14,7 +14,7 @@ import random as rd
 from solitaire import Solitaire
 from crawler import nHentaiSearcher, imageSearcher, tagSearcher, covid19
 from ticTacToe import TicTacToe
-from lyrics import SolitaireDB
+from lyrics import LyricDB, SolitaireDB
 
 solitaireList = []
 TicTacToeMode = False
@@ -139,12 +139,16 @@ def handle_message(event):
                     tempStr += solitaireList[cnt]
                     cnt += 1
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text=tempStr))
-        
         else: 
-            # try:
-            soliModel = SolitaireDB(message)
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=soliModel.querySequence()))
-            # except:
+            try:
+                soliModel = SolitaireDB(message)
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=soliModel.querySequence()))
+            except:
+                soliModel = LyricDB(message)
+                if '找歌' in message:
+                    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=soliModel.findLyrics()))
+                else:
+                    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=soliModel.findSolitaire(message)))
             #     line_bot_api.reply_message(event.reply_token, TextSendMessage(text="接龍失敗"))
             # soliModel = Solitaire(message,solitaireList)
             # answer = soliModel.processer()

@@ -1,6 +1,13 @@
 import requests
 from bs4 import BeautifulSoup
 import random as rd
+import time
+import selenium
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from selenium.common.exceptions import TimeoutException
 
 class nHentaiSearcher:
     def __init__(self,num):
@@ -64,39 +71,48 @@ class tagSearcher:
         return self.__tempStr
 
 class imageSearcher:
-    def __init__(self,mode,crawlNum):
+    def __init__(self,crawlNum):
         self.crawlNum = crawlNum if crawlNum <= 5 else 5
-        self.mode = mode
-        if mode == "不可以色色":
-            self.target = requests.get("https://anime-pictures.net/")
-        elif mode == "可以色色":
-            self.target = requests.get("https://hanime.tv/browse/images/")
+        options = webdriver.ChromeOptions()
+        options.add_experimental_option("excludeSwitches", ["enable-automation"])
+        options.add_experimental_option('useAutomationExtension', False)
+        options.add_experimental_option("prefs", {"profile.password_manager_enabled": False, "credentials_enable_service": False})
+        self.target=webdriver.Chrome('./chromedriver.exe',chrome_options=options)
+
+    def LoginPixiv(self):
+        self.target.maximize_window()
+        time.sleep(3)
+        self.target.get("https://www.pixiv.net/ranking.php")
+        # 點登入按鈕
+        self.target.find_element(By.CLASS_NAME,"ui-button._login").click()
+        # 輸入帳號密碼
+        username, password = self.target.find_elements(By.TAG_NAME,"input")[0], self.target.find_elements(By.TAG_NAME,"input")[1]
+        username.send_keys("b09705026@ntu.edu.tw")
+        password.send_keys("Db168245")
+        self.target.find_element(By.CLASS_NAME,"signup-form__submit").click()
+        while(len(self.target.find_elements(By.CLASS_NAME,"ranking-item")) != 500):
+            self.target.execute_script("window.scrollTo(0,document.body.scrollHeight)")
+        
+        # self.target.close()
+
 
     def getNormalImage(self):
         # 首頁找圖
-        page = BeautifulSoup(self.target.text,"html.parser")
-        title = page.find_all("div","post_content index_page")
         imgArr = []
-        for i in range(self.crawlNum):
-            tempStr = ""
-            titleNum = rd.randint(1,2)
-            images = title[titleNum].find_all("span","img_block2")
-            rand = rd.randint(0,11)
-            img = images[rand]
-            link = img.find("a")['href']
-            link = link.replace("en","zh_CN")
-
-            # 進入該圖
-            self.target = requests.get("https://anime-pictures.net" + link)
-            page = BeautifulSoup(self.target.text,"html.parser")
-            truePage = page.find("div",{"id":"big_preview_cont"})
-            trueLink = truePage.find("a")['href']
-            tempStr += "https://anime-pictures.net" + trueLink
-            imgArr.append(tempStr)   
+        page = BeautifulSoup(self.target.page_source,"html.parser")
+        rankingItems = page.find_all("section","ranking-item")
+        randRank = rd.randint(0,499)
+        imgId = rankingItems[randRank].find("div","ranking-image-item").find("a")['href']
+        print(imgId)
+        imgLink = rankingItems[randRank].find("img")['src']
+        print(imgLink)
+        # resData = requests.get(imgLink,headers={'Referer': 'https://www.pixiv.net/'})
+        imgArr.append([randRank,imgLink])
         return imgArr
     
     def getHentaiImage(self):
-        page = BeautifulSoup(self.target.text,"html.parser")
+
+        page = BeautifulSoup(self.target.page_source,"html.parser")
         tempStr = ""
         image = page.findAll("a")
         randNum = rd.randint(0,len(image))
@@ -129,8 +145,7 @@ class covid19:
         tempStr += '死亡： ' + newDeathStr
         return tempStr
 
-# a = "1 2"
-# a = a.split(" ")
-# print(a)
-# a = imageSearcher("不可以色色",int(input().split(" ")[1]))
-# print(a.getNormalImage())
+
+a = imageSearcher(5)
+a.LoginPixiv()
+print(a.getNormalImage())

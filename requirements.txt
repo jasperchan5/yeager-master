@@ -6,3 +6,5 @@ pyquery
 numpy
 pymongo
 dnspython
+selenium
+time
