@@ -1,4 +1,3 @@
-import collections
 from operator import indexOf
 import pymongo
 import time
