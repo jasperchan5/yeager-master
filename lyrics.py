@@ -133,7 +133,6 @@ class LyricDB: # 輸入: 找歌 <歌名> <歌手>
             except:
                 print("不是這首歌")
                 continue
-        return "找不到能接的歌詞！"
 
     def listAllSong(self):
         songList = self.__client["Lyrics"].list_collection_names()
