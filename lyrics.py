@@ -135,10 +135,12 @@ class LyricDB: # 輸入: 找歌 <歌名> <歌手>
         return "找不到能接的歌詞！"
 
     def listAllSong(self):
-        songList = self.__client["Lyrics"].list_collection_names().sort()
+        songList = self.__client["Lyrics"].list_collection_names()
+        songList.sort()
         songStr = ""
         for i in songList:
             songStr += i + '\n'
+        print(songStr)
         return songStr
 
     def toTraditional(self):
@@ -177,6 +179,7 @@ class LyricDB: # 輸入: 找歌 <歌名> <歌手>
 
 # a = input()
 # soliModel = LyricDB(a)
+# soliModel.listAllSong()
 # if "找歌" in a:
 #     soliModel.findLyrics()
 # elif "刪歌" in a:
