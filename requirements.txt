@@ -7,3 +7,4 @@ numpy
 pymongo
 dnspython
 selenium
+python-dotenv

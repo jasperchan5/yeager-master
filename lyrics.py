@@ -1,4 +1,5 @@
 from operator import indexOf
+import dotenv
 import pymongo
 import time
 import selenium
@@ -114,15 +115,21 @@ class LyricDB: # 輸入: 找歌 <歌名> <歌手>
             print(eachSong)
             try:
                 lyrics = self.__client["Lyrics"][eachSong].find_one({})
-                return lyrics["lyrics"][lyrics["lyrics"].index(self.__song)+1]
+                for p in lyrics:
+                    if p == self.__song:
+                        return p
+                    elif self.__song in p:
+                        return p[len(self.__song):len(p)]
             except:
                 print("不是這首歌")
                 continue
+        return 
         
-    def clearSequence(self,category):
+    def clearSong(self):
         soli_db = self.__client['Lyrics']
-        collection = soli_db[category]
-        collection.delete_many({})
+        collection = soli_db[self.__song]
+        collection.drop()
+        return f"已刪除歌曲 {self.__song}。"
 
-# soliModel = LyricDB("找歌 步步 五月天")
-# soliModel.findLyrics()
+soliModel = LyricDB("找歌 超有感 黃鴻升")
+soliModel.findLyrics()
