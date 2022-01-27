@@ -98,8 +98,6 @@ class LyricDB: # 輸入: 找歌 <歌名> <歌手>
                     print("轉換後：",k2)
                     self.__allLyrics.append(k2)
         browser.close()
-        if self.__allLyrics == []:
-            return "哭啊，抓不到歌詞！"
         
     def findLyrics(self):
         collections = self.__client["Lyrics"].list_collection_names()
@@ -116,7 +114,10 @@ class LyricDB: # 輸入: 找歌 <歌名> <歌手>
                 "lyrics": self.__allLyrics
             })
             print("沒找到！")
-            return f"資料庫查無歌曲：{self.__song}，已創建歌詞資料。"
+            if self.__allLyrics == []:
+                return f"哭啊，找不到歌曲：{self.__song} 的歌詞！"
+            else:
+                return f"資料庫查無歌曲：{self.__song}，已創建歌詞資料。"
         
     def findSolitaire(self):
         collections = self.__client["Lyrics"].list_collection_names()
@@ -177,16 +178,15 @@ class LyricDB: # 輸入: 找歌 <歌名> <歌手>
         return f"已清除歌詞為空者：{removeList}"
        
 
-# a = input()
-# soliModel = LyricDB(a)
-# soliModel.listAllSong()
-# if "找歌" in a:
-#     soliModel.findLyrics()
-# elif "刪歌" in a:
-#     soliModel.clearSong()
-# elif "簡轉繁" in a:
-#     soliModel.toTraditional()
-# elif "清理曲庫" in a:
-#     soliModel.clearNull()
-# else:
-#     soliModel.findSolitaire()
+a = input()
+soliModel = LyricDB(a)
+if "找歌" in a:
+    soliModel.findLyrics()
+elif "刪歌" in a:
+    soliModel.clearSong()
+elif "簡轉繁" in a:
+    soliModel.toTraditional()
+elif "清理曲庫" in a:
+    soliModel.clearNull()
+else:
+    soliModel.findSolitaire()
