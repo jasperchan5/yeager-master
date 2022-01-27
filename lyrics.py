@@ -178,15 +178,15 @@ class LyricDB: # 輸入: 找歌 <歌名> <歌手>
         return f"已清除歌詞為空者：{removeList}"
        
 
-a = input()
-soliModel = LyricDB(a)
-if "找歌" in a:
-    soliModel.findLyrics()
-elif "刪歌" in a:
-    soliModel.clearSong()
-elif "簡轉繁" in a:
-    soliModel.toTraditional()
-elif "清理曲庫" in a:
-    soliModel.clearNull()
-else:
-    soliModel.findSolitaire()
+# a = input()
+# soliModel = LyricDB(a)
+# if "找歌" in a:
+#     soliModel.findLyrics()
+# elif "刪歌" in a:
+#     soliModel.clearSong()
+# elif "簡轉繁" in a:
+#     soliModel.toTraditional()
+# elif "清理曲庫" in a:
+#     soliModel.clearNull()
+# else:
+#     soliModel.findSolitaire()
