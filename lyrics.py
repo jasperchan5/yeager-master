@@ -10,6 +10,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
+import opencc
 
 class SolitaireDB: ## 輸入: <想接的單字>
     def __init__(self,input):
@@ -80,6 +81,7 @@ class LyricDB: # 輸入: 找歌 <歌名> <歌手>
         options.add_experimental_option("prefs", {"profile.password_manager_enabled": False, "credentials_enable_service": False})
 
         browser=webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"),chrome_options=options)
+        # browser=webdriver.Chrome(executable_path="./chromedriver.exe",chrome_options=options)
         browser.maximize_window()
         time.sleep(3)
         browser.get("https://www.google.com/search?q=" + self.__song + "+" + self.__singer + "+歌詞")
@@ -91,8 +93,13 @@ class LyricDB: # 輸入: 找歌 <歌名> <歌手>
             for j in eachPara:
                 jp = j.text.split(" ")
                 for k in jp:
-                    self.__allLyrics.append(k)
+                    print("轉換前：",k)
+                    k2 = opencc.OpenCC('s2t').convert(k)
+                    print("轉換後：",k2)
+                    self.__allLyrics.append(k2)
         browser.close()
+        if self.__allLyrics == []:
+            return "哭啊，抓不到歌詞！"
         
     def findLyrics(self):
         collections = self.__client["Lyrics"].list_collection_names()
@@ -125,13 +132,58 @@ class LyricDB: # 輸入: 找歌 <歌名> <歌手>
             except:
                 print("不是這首歌")
                 continue
-        return 
+        return "找不到能接的歌詞！"
+
+    def listAllSong(self):
+        songList = self.__client["Lyrics"].list_collection_names().sort()
+        songStr = ""
+        for i in songList:
+            songStr += i + '\n'
+        return songStr
+
+    def toTraditional(self):
+        collections = self.__client["Lyrics"].list_collection_names()
+        for eachSong in collections:
+            # print(eachSong)
+            lyrics = self.__client["Lyrics"][eachSong].find_one({})["lyrics"]
+            # print(lyrics)
+            newLyrics = []
+            for p in lyrics:
+                newLyrics.append(opencc.OpenCC('s2t').convert(p))
+            # print(newLyrics)
+            self.__client["Lyrics"][eachSong].replace_one({"lyrics": lyrics},{"lyrics": newLyrics})
+        return "全部歌曲已轉成繁體。"
         
     def clearSong(self):
         soli_db = self.__client['Lyrics']
         collection = soli_db[self.__song]
         collection.drop()
+        print(f"已刪除歌曲 {self.__song}。")
         return f"已刪除歌曲 {self.__song}。"
+    
+    def clearNull(self):
+        collections = self.__client["Lyrics"].list_collection_names()
+        removeList = []
+        for eachSong in collections:
+            print(eachSong)
+            lyrics = self.__client["Lyrics"][eachSong].find_one({})["lyrics"]
+            if lyrics == []:
+                self.__client["Lyrics"][eachSong].drop()
+                removeList.append(eachSong)
+            # self.__client["Lyrics"][eachSong].find_one_and_update({})["lyrics"]
+        print(f"已清除歌詞為空者：{removeList}")
+        return f"已清除歌詞為空者：{removeList}"
+       
 
-# soliModel = LyricDB("我難過")
-# soliModel.findSolitaire()
+# a = input()
+# soliModel = LyricDB(a)
+# if "找歌" in a:
+#     soliModel.findLyrics()
+# elif "刪歌" in a:
+#     soliModel.clearSong()
+# elif "簡轉繁" in a:
+#     soliModel.toTraditional()
+# elif "清理曲庫" in a:
+#     soliModel.clearNull()
+# else:
+#     soliModel.findSolitaire()
