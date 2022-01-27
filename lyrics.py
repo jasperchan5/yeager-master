@@ -116,11 +116,11 @@ class LyricDB: # 輸入: 找歌 <歌名> <歌手>
         for eachSong in collections:
             print(eachSong)
             try:
-                lyrics = self.__client["Lyrics"][eachSong].find_one({})
-                for p in lyrics:
+                lyrics = self.__client["Lyrics"][eachSong].find_one({})["lyrics"]
+                for i, p in enumerate(lyrics):
                     if p == self.__song:
-                        return p
-                    elif self.__song in p:
+                        return lyrics[i+1]
+                    elif self.__song in p and p != self.__song:
                         return p[len(self.__song):len(p)]
             except:
                 print("不是這首歌")
@@ -133,5 +133,5 @@ class LyricDB: # 輸入: 找歌 <歌名> <歌手>
         collection.drop()
         return f"已刪除歌曲 {self.__song}。"
 
-soliModel = LyricDB("找歌 超有感 黃鴻升")
-soliModel.findLyrics()
+# soliModel = LyricDB("我難過")
+# soliModel.findSolitaire()
