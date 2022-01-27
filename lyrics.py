@@ -66,6 +66,8 @@ class LyricDB: # 輸入: 找歌 <歌名> <歌手>
         if "找歌" in input:
             self.__song = input.split(" ")[1]
             self.__singer = input.split(" ")[2]
+        elif "刪歌" in input:
+            self.__song = input.split(" ")[1]
         else:
             self.__song = input
         self.__allLyrics = []

@@ -148,6 +148,8 @@ def handle_message(event):
                 try:
                     if '找歌' in message:
                         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=soliModel.findLyrics()))
+                    elif '刪歌' in message:
+                        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=soliModel.clearSong()))
                     else:
                         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=soliModel.findSolitaire()))
                 except Exception as e:
