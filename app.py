@@ -11,7 +11,6 @@ from linebot.models import *
 
 import random as rd
 
-from solitaire import Solitaire
 from crawler import covid19
 from ticTacToe import TicTacToe
 from lyrics import LyricDB, SolitaireDB
