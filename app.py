@@ -12,7 +12,7 @@ from linebot.models import *
 import random as rd
 
 from solitaire import Solitaire
-from crawler import nHentaiSearcher, imageSearcher, tagSearcher, covid19
+from crawler import covid19
 from ticTacToe import TicTacToe
 from lyrics import LyricDB, SolitaireDB
 
@@ -56,72 +56,12 @@ def handle_message(event):
     if TicTacToeMode == False:
 
         if message == '指令':
-            orders = '很高興認識你，我是接龍大師。\n\n【 功能列表 】\n\n─〔接龍〕─\n野格炸彈\n星爆\n田勝傑\n南一中蜜蜂\n我難過\n\n輸入「接龍進度」以查看進行中的接龍\n\n─〔接歌〕─\n找歌：請輸入「找歌 歌名 歌手」以查詢是否收錄此曲，若無則會自動進行更新。\n接歌：輸入歌詞則闕先生會盡力幫助你接歌。\n刪歌：輸入「刪歌 歌名」則會刪除指定歌曲。\n清理：輸入「清理曲庫」則會清理沒有歌詞資料的歌。\n轉繁體：輸入「簡轉繁」會將簡體字歌詞轉為繁體字。\n曲目列表：輸入「曲目列表」會列出所有已收錄曲目。\n\n─〔井字遊戲〕─\n請輸入「井字遊戲」切換\n\n─〔推本子〕─\n隨機推本：請輸入「神之語言」\n本號查詢：請輸入「神之語言 <任意數字>」\n標籤查詢：請輸入「找本子 <tag1> <tag2>...」\n\n─〔推圖〕─\nR-18：請輸入「可以色色」（開發中）\n正常向：請輸入「不可以色色」\n\n─〔每日疫情資訊〕─\n請輸入「疫情報告」\n\n更多功能敬請期待...'
+            orders = '很高興認識你，我是接龍大師。\n\n【 功能列表 】\n\n─〔接龍〕─\n野格炸彈\n星爆\n田勝傑\n南一中蜜蜂\n我難過\n\n輸入「接龍進度」以查看進行中的接龍\n\n─〔接歌〕─\n找歌：請輸入「找歌 歌名 歌手」以查詢是否收錄此曲，若無則會自動進行更新。\n接歌：輸入歌詞則闕先生會盡力幫助你接歌。\n刪歌：輸入「刪歌 歌名」則會刪除指定歌曲。\n清理：輸入「清理曲庫」則會清理沒有歌詞資料的歌。\n轉繁體：輸入「簡轉繁」會將簡體字歌詞轉為繁體字。\n曲目列表：輸入「曲目列表」會列出所有已收錄曲目。\n\n─〔井字遊戲〕─\n請輸入「井字遊戲」切換\n\n─〔每日疫情資訊〕─\n請輸入「疫情報告」\n\n更多功能敬請期待...'
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text=orders))
 
         elif message == '井字遊戲':
             TicTacToeMode = True
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Switch！！！\n\n【井字遊戲模式】\n\n─〔規則說明〕─\n首先輸入英文大寫O或X來選擇自己的符號\n接著就輸入<座標一 座標二>來決定劃記地點\n棋盤為3x3，向下為X座標，向右為Y座標\n輸入「別玩了」終止遊戲"))
-        
-        elif message == '神之語言':
-            randNum = rd.randint(0,400000)
-            hentaiSearch = nHentaiSearcher(str(randNum))
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=hentaiSearch.searchTitle()))
-        
-        elif '神之語言 ' in message:
-            doujinNum = message.split(" ")[1]
-            hentaiSearch = nHentaiSearcher(doujinNum)
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=hentaiSearch.searchTitle()))
-        
-        elif '找本子 ' in message:
-            temp = message.split(" ")
-            tag = ""
-            tagCnt = 0
-            for i in temp:
-                if tagCnt != 0:
-                    tag += temp[tagCnt]
-                    if tagCnt < len(temp)-1:
-                        tag += '+'
-                        tagCnt += 1
-                else:
-                    tagCnt += 1
-            doujinSearch = tagSearcher(tag)
-            try:
-                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=doujinSearch.searchDoujin()))
-            except:
-                line_bot_api.reply_message(event.reply_token, TextSendMessage(text="哭啊，找本失敗！"))
-        
-        elif '不可以色色' in message or message == '可以色色':
-            if '不可以色色' in message:
-                if message == '不可以色色':
-                    inMessage = message
-                    crawlNum = 1
-                else:
-                    message = message.split(" ")
-                    inMessage = message[0]
-                    crawlNum = int(message[1])
-                imgBot = imageSearcher(inMessage,crawlNum)
-                imgLink = imgBot.getNormalImage()
-            else:
-                imgBot = imageSearcher(message)
-                imgLink = imgBot.getHentaiImage()
-            try:
-                if len(imgLink) == 1:
-                    line_bot_api.reply_message(event.reply_token, ImageSendMessage(
-                                                                    original_content_url = imgLink[0],
-                                                                    preview_image_url = imgLink[0]))
-                else:
-                    imgArr = []
-                    for i in imgLink:
-                        imgArr.append(ImageSendMessage(
-                                        original_content_url = i,
-                                        preview_image_url = i)
-                                    )
-                    line_bot_api.reply_message(event.reply_token, imgArr)
-            except:
-                line_bot_api.reply_message(event.reply_token, ImageSendMessage(
-                                                                original_content_url = 'https://imgur.com/mj4CCdA.png',
-                                                                preview_image_url = 'https://imgur.com/mj4CCdA.png'))
         
         elif message == '疫情報告':
             covidBot = covid19()
